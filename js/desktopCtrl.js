@@ -80,7 +80,7 @@ function tilify (tiles) {
 //            big_tile_size = tiles_Container_width / 2;
 //            medium_tile_size = big_tile_size / 2;
 //            small_tile_size = medium_tile_size / 2;   
-            gridsPerRow = 8;
+            gridsPerRow = 4;
             small_tile_size = Math.floor(tiles_Container_width / gridsPerRow);
         }
         
@@ -167,6 +167,17 @@ function tilify (tiles) {
         
         //console.log(grids);
         
+    }
+    
+    
+    /*
+    * This function will reset the Grids
+    */
+    function resetGrids () {
+        for(var key in grids) {
+            grids[key].occupiedBy = "none";
+            grids[key].type = '';
+        }
     }
     
     
@@ -317,7 +328,7 @@ function tilify (tiles) {
                         + '</div>';
         }
         
-        $('.tiles-container').append(tilesHtml);
+        $('.tiles-container').html(tilesHtml);
     }
     
     function doTilify () {
@@ -325,7 +336,7 @@ function tilify (tiles) {
         calculateWidths();
         makeGrids();        
         mapTilesToGrid();
-        drawGrid();
+        //drawGrid();
         drawTiles();
         
         //categorizeTiles();
@@ -336,6 +347,12 @@ function tilify (tiles) {
         //applyTileSize();
         //initDragging();
         //tapNHoldTile();
+    }
+    
+    function reTilify () {
+        resetGrids();
+        mapTilesToGrid();
+        drawTiles();
     }
     
     doTilify();
@@ -349,9 +366,9 @@ function tilify (tiles) {
     /*
     * This function initiates jq-ui-dragging on tiles-container
     */
-    function initDragging () {
-        $( ".tiles-container" ).sortable();
-    }
+//    function initDragging () {
+//        $( ".tiles-container" ).sortable();
+//    }
     
     var timeout_id = 0;
     var hold_time = 700;
@@ -416,7 +433,7 @@ function tilify (tiles) {
         //offY = parseInt($(dragTileId).css('top')) - ev.pageX;
         iniMX = ev.pageX;
         iniMY = ev.pageY;
-        console.log('dragging start'); console.log($(ev.target).closest('.tile').attr('id'));
+        //console.log('dragging start'); console.log($(ev.target).closest('.tile').attr('id'));
     });
     
     $('body').on('mouseup mouseleave', '.tile', function(ev){
@@ -432,7 +449,7 @@ function tilify (tiles) {
         
         //get the element to be shifted
         var tileToShiftId = $('.shift-effect').attr('id');
-        console.log('element to shift = '+tileToShiftId + " and dragTileId="+dragTileId);
+        //console.log('element to shift = '+tileToShiftId + " and dragTileId="+dragTileId);
         $('.tile').removeClass('shift-effect');
         
         
@@ -464,12 +481,12 @@ function tilify (tiles) {
             
             newTiles[dragTileInsertIndex] = dragTileObj;
             
-            console.log(tiles);
-            console.log(newTiles);
+            //console.log(tiles);
+            //console.log(newTiles);
             
             tiles = newTiles;
             dragTileId = null;
-            doTilify();
+            reTilify();
         } 
         else {
             $('#' + dragTileId).css({
@@ -497,7 +514,7 @@ function tilify (tiles) {
             
             for (var i in tiles) {
                 if(dragTileId != tiles[i].id && Math.abs(tiles[i].left - tileLeft) < 20 && Math.abs(tiles[i].top - tileTop) < 20) {
-                    console.log(tiles[i].id + " can be moved...");
+                    //console.log(tiles[i].id + " can be moved...");
                     $('.tile').removeClass('shift-effect');
                     $('#' + tiles[i].id).addClass('shift-effect');
                     break;
