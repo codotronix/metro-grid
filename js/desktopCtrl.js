@@ -428,6 +428,7 @@ function tilify (tiles) {
         dragTileId = $(ev.target).closest('.tile').attr('id');
         $('#' + dragTileId).css('z-index', 11);
         isDragging = true;
+        $('body').css('overflow','hidden');
         //console.log("top="+$(dragTileId).css('top') + " and left="+$(dragTileId).css('left'));
         //console.log(ev);
         //offY = parseInt($(dragTileId).css('top')) - ev.pageX;
@@ -440,7 +441,7 @@ function tilify (tiles) {
         //console.log('dragging end');
         isDragging = false;
         $('body').trigger('click');
-        
+        $('body').css('overflow','auto');
         if(dragTileId == null) {return;}
         $('#' + dragTileId).css('z-index', 10);
         var gridId = $('#' + dragTileId).attr('data-gridid');
