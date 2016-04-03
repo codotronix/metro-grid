@@ -2,7 +2,7 @@
     {
         "id": "tile1",
         "name": "1",
-        "size": "small"
+        "size": "big"
     },
     {
         "id": "tile2",
@@ -17,12 +17,12 @@
     {
         "id": "tile4",
         "name": "4",
-        "size": "small"
+        "size": "medium"
     },
     {
         "id": "tile5",
         "name": "5",
-        "size": "medium"
+        "size": "big"
     },
     {
         "id": "tile6",
@@ -42,7 +42,7 @@
     {
         "id": "tile9",
         "name": "9",
-        "size": "big"
+        "size": "small"
     },
     {
         "id": "tile10",
@@ -52,7 +52,7 @@
     {
         "id": "tile11",
         "name": "11",
-        "size": "medium"
+        "size": "small"
     },
     {
         "id": "tile12",
@@ -67,12 +67,17 @@
     {
         "id": "tile14",
         "name": "14",
-        "size": "medium"
+        "size": "small"
+    },
+    {
+        "id": "tile14.1",
+        "name": "14.1",
+        "size": "small"
     },
     {
         "id": "tile15",
         "name": "15",
-        "size": "big"
+        "size": "medium"
     },
     {
         "id": "tile16",
@@ -87,12 +92,17 @@
     {
         "id": "tile18",
         "name": "18",
-        "size": "small"
+        "size": "medium"
+    },
+    {
+        "id": "tile18.1",
+        "name": "18.1",
+        "size": "medium"
     },
     {
         "id": "tile19",
         "name": "19",
-        "size": "medium"
+        "size": "small"
     },
     {
         "id": "tile20",

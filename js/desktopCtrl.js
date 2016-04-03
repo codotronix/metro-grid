@@ -189,7 +189,7 @@ function tilify (tiles) {
     * and will store that grid id on that tile object
     */
     function mapTilesToGrid () {
-        categorizeTiles();
+//        categorizeTiles();
 //        for(var i in bigTiles) {
 //            bigTiles[i].gridId = placeTileOnGrid (bigTiles[i]);
 //        }
@@ -202,13 +202,13 @@ function tilify (tiles) {
         
         
         for (var i in tiles) {
-            console.log("sending for tile id="+tiles[i].id);
+            //console.log("sending for tile id="+tiles[i].id);
             gridId = placeTileOnGrid (tiles[i]);
             tiles[i].gridId = gridId;
         }
         
-        console.log(tiles);
-        console.log(grids);
+        //console.log(tiles);
+        //console.log(grids);
     }
     
     /*
@@ -224,11 +224,11 @@ function tilify (tiles) {
                if (tile.size == "small") {
                    grids[key].occupiedBy = tile.id;
                    grids[key].type = 'startGrid';
-                   console.log(key + " is will hold " + tile.size + " tile id="+tile.id);
+                   //console.log(key + " is will hold " + tile.size + " tile id="+tile.id);
                    return(key);
                } else {
                    if (canItHoldTile(grids[key].id, tile.size)) {
-                       console.log(key + " is will hold " + tile.size + " tile id="+tile.id);
+                       //console.log(key + " is will hold " + tile.size + " tile id="+tile.id);
                        //console.log("before markGridsOccupied");
                        //console.log(grids);
                        markGridsOccupied(grids[key].id, tile.size, tile.id);
@@ -308,7 +308,9 @@ function tilify (tiles) {
         for(var i in tiles) {            
             var width = (tiles[i].size == "small") ? small_tile_size : ((tiles[i].size == "medium") ? medium_tile_size : big_tile_size);
             //console.log()
-            tilesHtml +=  '<div class="tile ' + tiles[i].size + ' real" id="' + tiles[i].id + '" style="top:' +grids[tiles[i].gridId].top+ 'px; left:' +grids[tiles[i].gridId].left+ 'px; width:' +width+ 'px; height:' +width+ 'px;">'
+            tiles[i].top = grids[tiles[i].gridId].top;
+            tiles[i].left = grids[tiles[i].gridId].left;
+            tilesHtml +=  '<div class="tile ' + tiles[i].size + ' real" id="' + tiles[i].id + '" style="top:' +tiles[i].top+ 'px; left:' +tiles[i].left+ 'px; width:' +width+ 'px; height:' +width+ 'px;" data-gridid="' +tiles[i].gridId+ '">'
                         +     '<div class="tileInnerContainer">'
                         +         tiles[i].name
                         +     '</div>'
@@ -318,9 +320,6 @@ function tilify (tiles) {
         $('.tiles-container').append(tilesHtml);
     }
     
-    
-    
-    
     function doTilify () {
         initVars();
         calculateWidths();
@@ -328,6 +327,7 @@ function tilify (tiles) {
         mapTilesToGrid();
         drawGrid();
         drawTiles();
+        
         //categorizeTiles();
         //calculatePositionAbsolute();
         //groupSmallsToMedium();
@@ -335,7 +335,7 @@ function tilify (tiles) {
         //addToDOM();
         //applyTileSize();
         //initDragging();
-        tapNHoldTile();
+        //tapNHoldTile();
     }
     
     doTilify();
@@ -389,13 +389,135 @@ function tilify (tiles) {
                 tiles[i][property] = value;
                 break;
             }
-        }
-        
+        }        
         doTilify();
     }
-}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+
+/********************************************************************************************************
+************ Here I will Try to Implement Dragging and Repositioning Tile *******************************
+********************************************************************************************************/
+    var isDragging = false;
+    var dragTileId = null;
+    var iniMX = 0, iniMY = 0;
     
+    $('body').on('mousedown', '.tile', function(ev){
+        
+        //if already dragging some tile, then return
+        if(isDragging) {return;}
+        
+        dragTileId = $(ev.target).closest('.tile').attr('id');
+        $('#' + dragTileId).css('z-index', 11);
+        isDragging = true;
+        //console.log("top="+$(dragTileId).css('top') + " and left="+$(dragTileId).css('left'));
+        //console.log(ev);
+        //offY = parseInt($(dragTileId).css('top')) - ev.pageX;
+        iniMX = ev.pageX;
+        iniMY = ev.pageY;
+        console.log('dragging start'); console.log($(ev.target).closest('.tile').attr('id'));
+    });
+    
+    $('body').on('mouseup mouseleave', '.tile', function(ev){
+        //console.log('dragging end');
+        isDragging = false;
+        $('body').trigger('click');
+        
+        if(dragTileId == null) {return;}
+        $('#' + dragTileId).css('z-index', 10);
+        var gridId = $('#' + dragTileId).attr('data-gridid');
+        var left = grids[gridId].left;
+        var top = grids[gridId].top;
+        
+        //get the element to be shifted
+        var tileToShiftId = $('.shift-effect').attr('id');
+        console.log('element to shift = '+tileToShiftId + " and dragTileId="+dragTileId);
+        $('.tile').removeClass('shift-effect');
+        
+        
+        /*
+        * we will loop thru tiles array and insert dragTile just 
+        * before tileToShift
+        */
+        var newTiles = [];
+        var dragTileObj = {};
+        var dragTileInsertIndex = 0;
+        var counter = -1;
+        if (tileToShiftId != undefined && dragTileId != null) {
+            for(var i in tiles) {
+                if (tiles[i].id == tileToShiftId) {
+                    counter++;
+                    newTiles.push(null); //later we will insert dragTileObj here
+                    dragTileInsertIndex = counter;
+                    counter++;
+                    newTiles.push(tiles[i]);
+                }
+                else if(tiles[i].id == dragTileId) {
+                    dragTileObj = tiles[i];
+                }
+                else {
+                    counter++;
+                    newTiles.push(tiles[i]);
+                }
+            }
+            
+            newTiles[dragTileInsertIndex] = dragTileObj;
+            
+            console.log(tiles);
+            console.log(newTiles);
+            
+            tiles = newTiles;
+            dragTileId = null;
+            doTilify();
+        } 
+        else {
+            $('#' + dragTileId).css({
+                "left": left,
+                "top": top
+            });
+            dragTileId = null;
+        }
+        
+    });
+    
+    $('body').on('mousemove', function (ev) {
+        //console.log('mouse is moving...');
+        
+        if (isDragging) {
+            var diffX = ev.pageX - iniMX;
+            var diffY = ev.pageY - iniMY;
+            iniMX = ev.pageX;
+            iniMY = ev.pageY;
+            
+            var tileLeft = parseInt($('#' + dragTileId).css('left'));
+            var tileTop = parseInt($('#' + dragTileId).css('top'));
+            var newLeft = tileLeft + diffX;
+            var newTop = tileTop + diffY;
+            
+            for (var i in tiles) {
+                if(dragTileId != tiles[i].id && Math.abs(tiles[i].left - tileLeft) < 20 && Math.abs(tiles[i].top - tileTop) < 20) {
+                    console.log(tiles[i].id + " can be moved...");
+                    $('.tile').removeClass('shift-effect');
+                    $('#' + tiles[i].id).addClass('shift-effect');
+                    break;
+                }
+            }
+            
+            $('#' + dragTileId).css({
+                "left": newLeft,
+                "top": newTop
+            });
+        }
+    });
+    
+//    $('body').on('mouseover mousemove', '.tile', function (ev) {
+//        if (isDragging) {
+//            console.log('hovering on tile ' + $(ev.target).closest('.tile').attr('id'));
+//        }
+//    });
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+}
     
 })()

@@ -3,6 +3,10 @@ ul {
     margin: 0;
 }
 
+.shift-effect {
+    margin: 7px;
+}
+
 .tiles-container {
     margin: 15px;
     position: relative;
