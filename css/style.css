@@ -1,3 +1,10 @@
+* {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */      
+}
+
 ul {
     padding: 0;
     margin: 0;
@@ -35,10 +42,11 @@ ul {
 }
 
 .tile .tileInnerContainer {
-    border: 1px solid #00F;
+/*    border: 1px solid #00F;*/
     height: 100%;
     width: 100%;
     display: block;
+    position: relative;
 }
 
 .xs .tile {
@@ -51,6 +59,42 @@ ul {
 
 .md .tile {
     padding: 4px;
+}
+
+.tile .name {
+    display: block;
+    text-overflow: ellipsis;
+    height: 20px;
+    overflow: hidden;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(255,255,255,.3);
+    color: #FFF;
+    font-size: 13px;
+}
+
+.tile .fontIcon {
+    font-size: 150px;
+    margin-top: 60px;
+    color: #FFF;
+}
+
+.tile.medium .fontIcon,
+.tile.rectangle .fontIcon{
+    font-size: 50px;
+    margin-top: 40px;
+}
+
+.tile.small .fontIcon {
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+.tile.medium .fontIcon {
+    font-size: 50px;
+    margin-top: 40px;
 }
 
 .s2mC,
