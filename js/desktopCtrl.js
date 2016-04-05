@@ -53,7 +53,7 @@ function tilify (tiles) {
         medium_tile_size = 0;
         small_tile_size = 0;
         
-        var tiles_Container_width = $('.tiles-container').width();
+        var tiles_Container_width = $('.tiles-container').width() - 17;     //17px for scrollbar 
         page_Width_Class = 'xs';
         var all_Possible_Width_Classes = 'xs sm md lg';
         
@@ -84,7 +84,7 @@ function tilify (tiles) {
 //            big_tile_size = tiles_Container_width / 2;
 //            medium_tile_size = big_tile_size / 2;
 //            small_tile_size = medium_tile_size / 2;   
-            gridsPerRow = 4;
+            gridsPerRow = 8;
             small_tile_size = Math.floor(tiles_Container_width / gridsPerRow);
         }
         
@@ -327,6 +327,7 @@ function tilify (tiles) {
     var colorCodes = ["#632F00", "#B01E00", "#C1004F", "#4617B4", "#008287", "#199900", "#00C13F", "#FF2E12", "#FF1D77", "#AA40FF", "#1FAEFF", "#000", "#00A3A3", "#FE7C22"];
     function drawTiles () {
         var tilesHtml = '';
+        var highestTop = 0;
         for(var i in tiles) {            
             tiles[i].width = (tiles[i].size == "small") ? small_tile_size : ((tiles[i].size == "medium") ? medium_tile_size : big_tile_size);
             tiles[i].height = (tiles[i].size == "small") ? small_tile_size : ((tiles[i].size == "big") ? big_tile_size : medium_tile_size);
@@ -346,9 +347,20 @@ function tilify (tiles) {
                      +            '</label>'
                      +        '</div>'
                      +     '</div>';
+            
+            if(tiles[i].top > highestTop) {highestTop = tiles[i].top;}
         }
         
+        
+        //now add a div to clear some space out, as all tiles are position abslute
+        highestTop += big_tile_size;
+        tilesHtml += '<div style="clear:both; position:absolute; top: ' +highestTop+ 'px; left: 10px; right: 10px; height:30px;"></div>';
+        
         $('.tiles-container').html(tilesHtml);
+        
+        $('.tiles-container').css({
+            "height": highestTop + 'px'
+        });
     }
     
     function doTilify () {

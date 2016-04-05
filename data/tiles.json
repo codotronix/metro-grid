@@ -10,7 +10,7 @@
     {
         "id": "tile2",
         "name": "Font Awesome",
-        "size": "small",
+        "size": "medium",
         "iconType": "font",
         "icon": "fa fa-fort-awesome"
     },
@@ -24,7 +24,7 @@
     {
         "id": "tile4",
         "name": "Calculator",
-        "size": "small",
+        "size": "rectangle",
         "iconType": "font",
         "icon": "fa fa-calculator"
     },
@@ -35,6 +35,13 @@
         "iconType": "font",
         "icon": "fa fa-calendar",
         "bgColor": "green"
+    },
+    {
+        "id": "tile18",
+        "name": "My Pictures",
+        "size": "big",
+        "iconType": "font",
+        "icon": "fa fa-file-image-o"
     },
     {
         "id": "tile6",
@@ -61,7 +68,7 @@
     {
         "id": "tile9",
         "name": "Github",
-        "size": "big",
+        "size": "small",
         "iconType": "font",
         "icon": "fa fa-github",
         "bgColor": "#0A5231"
@@ -76,14 +83,14 @@
     {
         "id": "tile11",
         "name": "Offersplus",
-        "size": "medium",
+        "size": "small",
         "iconType": "font",
         "icon": "fa fa-shopping-bag"
     },
     {
         "id": "tile12",
         "name": "Mini Puzzle",
-        "size": "small",
+        "size": "medium",
         "iconType": "font",
         "icon": "fa fa-puzzle-piece",
         "bgColor": "orangered"
@@ -91,7 +98,7 @@
     {
         "id": "tile13",
         "name": "Flight App",
-        "size": "rectangle",
+        "size": "medium",
         "iconType": "font",
         "icon": "fa fa-plane"
     },
@@ -106,7 +113,7 @@
     {
         "id": "tile15",
         "name": "Medical App",
-        "size": "big",
+        "size": "medium",
         "iconType": "font",
         "icon": "fa fa-heartbeat",
         "bgColor": "red"
@@ -114,35 +121,28 @@
     {
         "id": "tile16",
         "name": "Planet App",
-        "size": "small",
+        "size": "medium",
         "iconType": "font",
         "icon": "fa fa-globe"
     },
     {
         "id": "tile17",
         "name": "My Videos",
-        "size": "small",
+        "size": "rectangle",
         "iconType": "font",
         "icon": "fa fa-film"
     },
     {
-        "id": "tile18",
-        "name": "My Pictures",
-        "size": "medium",
-        "iconType": "font",
-        "icon": "fa fa-file-image-o"
-    },
-    {
         "id": "tile19",
         "name": "Message Box",
-        "size": "rectangle",
+        "size": "medium",
         "iconType": "font",
         "icon": "fa fa-envelope"
     },
     {
         "id": "tile20",
         "name": "linkedin",
-        "size": "small",
+        "size": "medium",
         "iconType": "font",
         "icon": "fa fa-linkedin-square",
         "bgColor": "darkred"

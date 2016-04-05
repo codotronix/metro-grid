@@ -5,6 +5,11 @@
   user-select: none;          /* Likely future */      
 }
 
+body { 
+    background: purple;
+/*    padding-bottom: 70px; */
+}
+
 ul {
     padding: 0;
     margin: 0;
@@ -17,6 +22,8 @@ ul {
 .tiles-container {
     margin: 15px 0;
     position: relative;
+    margin-top: 100px;
+    padding-bottom: 70px;
 }
 
 .grid {
@@ -73,6 +80,8 @@ ul {
     background: rgba(255,255,255,.3);
     color: #FFF;
     font-size: 13px;
+    padding: 0 5px;
+    white-space: nowrap;
 }
 
 .tile .fontIcon {
@@ -102,18 +111,15 @@ ul {
     float: left;
 }
 
-/*
-.lg .tile.big {
-    height: 400px;
-    width: 400px;
+@media (min-width: 768px) {
+    .taskbar .container-fluid {
+        padding: 0;
+    }
+    
+    .taskbar .navbar-inverse .navbar-nav>li>a.startBtn {
+        color: #FFFFFF;
+        background: #000;
+        font-size: 16px;
+    }
 }
 
-.lg .tile.medium {
-    height: 200px;
-    width: 200px;
-}
-
-.lg .tile.small {
-    height: 100px;
-    width: 100px;
-}*/
