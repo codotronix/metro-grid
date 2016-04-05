@@ -36,9 +36,9 @@ function tilify (tiles) {
     * Initialize all global variables
     */
     function initVars(){
-        big_tile_size = 0;
-        medium_tile_size = 0;
-        small_tile_size = 0;
+//        big_tile_size = 0;
+//        medium_tile_size = 0;
+//        small_tile_size = 0;
         smallTiles = [];
         mediumTiles = [];
         bigTiles = [];
@@ -49,7 +49,11 @@ function tilify (tiles) {
     * calculate height and width of the tiles depending on the tiles_container width
     */
     function calculateWidths () {
-        var tiles_Container_width = $('.tiles-container').width();
+        big_tile_size = 0;
+        medium_tile_size = 0;
+        small_tile_size = 0;
+        
+        var tiles_Container_width = $('.tiles-container').width() - 17;     //17px for scrollbar 
         page_Width_Class = 'xs';
         var all_Possible_Width_Classes = 'xs sm md lg';
         
@@ -80,7 +84,7 @@ function tilify (tiles) {
 //            big_tile_size = tiles_Container_width / 2;
 //            medium_tile_size = big_tile_size / 2;
 //            small_tile_size = medium_tile_size / 2;   
-            gridsPerRow = 4;
+            gridsPerRow = 8;
             small_tile_size = Math.floor(tiles_Container_width / gridsPerRow);
         }
         
@@ -130,12 +134,15 @@ function tilify (tiles) {
                 fillCapacity += 1;
             } else if (tiles[i].size == "medium") {
                 fillCapacity += 4;
-            } else if (tiles[i].size == "big") {
+            } else if (tiles[i].size == "rectangle") {
+                fillCapacity += 8;
+            }else if (tiles[i].size == "big") {
                 fillCapacity += 16;
             }
         }
         
-        //let's make total no grids be multiple gridsPerRow                
+        //let's make total no grids be multiple gridsPerRow
+        //Doubling the grids
         var totalGrids = gridsPerRow * Math.ceil(fillCapacity/gridsPerRow) * 2;
         
         //console.log("totalGrids="+totalGrids);
@@ -260,16 +267,17 @@ function tilify (tiles) {
     * a given tile size
     */    
     function canItHoldTile(gridId, tileSize) {
-        var q = (tileSize == "medium") ? 2 : 4; // medium is 2x2, big is 4x4
+        var x = (tileSize == "medium") ? 2 : 4; // medium is 2x2, big is 4x4, rectangle is 4x2
+        var y = (tileSize == "big") ? 4 : 2;    // y is 4 for big, 2 for medium and rectangle
         
-        var startI = grids[gridId].indX;
-        var startJ = grids[gridId].indY;
-        var uptoI = startI + (q-1);
-        var uptoJ = startJ + (q-1);
+        var startX = grids[gridId].indX;
+        var startY = grids[gridId].indY;
+        var uptoX = startX + (x-1);
+        var uptoY = startY + (y-1);
         var key = '';
         var innerLoopFailed = false;
-        for (var i = startI; i <= uptoI; i++) {
-            for (var j = startJ; j <= uptoJ; j++) {
+        for (var i = startX; i <= uptoX; i++) {
+            for (var j = startY; j <= uptoY; j++) {
                 key = i + "x" + j;
                 if(grids[key] == undefined || typeof(grids[key]) == undefined || grids[key].occupiedBy != "none") {
                     innerLoopFailed = true;
@@ -289,17 +297,19 @@ function tilify (tiles) {
     * by a medium or big tile
     */
     function markGridsOccupied (gridId, tileSize, tileId) {
-        var q = (tileSize == "medium") ? 2 : 4; // medium is 2x2, big is 4x4
-        var startI = grids[gridId].indX;
-        var startJ = grids[gridId].indY;
-        var uptoI = startI + (q-1);
-        var uptoJ = startJ + (q-1);
+        var x = (tileSize == "medium") ? 2 : 4; // medium is 2x2, big is 4x4, rectangle is 4x2
+        var y = (tileSize == "big") ? 4 : 2;    // y is 4 for big, 2 for medium and rectangle
+        
+        var startX = grids[gridId].indX;
+        var startY = grids[gridId].indY;
+        var uptoX = startX + (x-1);
+        var uptoY = startY + (y-1);
         var key = '';
         //console.log("inside markGridsOccupied");
         //console.log();
         //console.log("param gridId="+gridId+" tileSize="+tileSize+" tileId="+tileId);
-        for (var i = startI; i <= uptoI; i++) {
-            for (var j = startJ; j <= uptoJ; j++) {
+        for (var i = startX; i <= uptoX; i++) {
+            for (var j = startY; j <= uptoY; j++) {
                 key = i + "x" + j;
                 //console.log("marking grid "+ key + " occupied with tileId="+tileId);
                 grids[key].occupiedBy = tileId;
@@ -314,21 +324,43 @@ function tilify (tiles) {
     * check that grids top and left from grid object
     * prepare the html and dump it to DOM
     */
+    var colorCodes = ["#632F00", "#B01E00", "#C1004F", "#4617B4", "#008287", "#199900", "#00C13F", "#FF2E12", "#FF1D77", "#AA40FF", "#1FAEFF", "#000", "#00A3A3", "#FE7C22"];
     function drawTiles () {
         var tilesHtml = '';
+        var highestTop = 0;
         for(var i in tiles) {            
-            var width = (tiles[i].size == "small") ? small_tile_size : ((tiles[i].size == "medium") ? medium_tile_size : big_tile_size);
+            tiles[i].width = (tiles[i].size == "small") ? small_tile_size : ((tiles[i].size == "medium") ? medium_tile_size : big_tile_size);
+            tiles[i].height = (tiles[i].size == "small") ? small_tile_size : ((tiles[i].size == "big") ? big_tile_size : medium_tile_size);
             //console.log()
+            tiles[i].bgColor = tiles[i].bgColor || colorCodes[Math.floor(Math.random()*colorCodes.length)];
             tiles[i].top = grids[tiles[i].gridId].top;
             tiles[i].left = grids[tiles[i].gridId].left;
-            tilesHtml +=  '<div class="tile ' + tiles[i].size + ' real" id="' + tiles[i].id + '" style="top:' +tiles[i].top+ 'px; left:' +tiles[i].left+ 'px; width:' +width+ 'px; height:' +width+ 'px;" data-gridid="' +tiles[i].gridId+ '">'
-                        +     '<div class="tileInnerContainer">'
-                        +         tiles[i].name
-                        +     '</div>'
-                        + '</div>';
+            tilesHtml +=  '<div class="tile ' + tiles[i].size + ' real" id="' + tiles[i].id + '" style="top:' +tiles[i].top+ 'px; left:' +tiles[i].left+ 'px; width:' +tiles[i].width+ 'px; height:' +tiles[i].height+ 'px;" data-gridid="' +tiles[i].gridId+ '">'
+                        +     '<div class="tileInnerContainer" style="background:' + tiles[i].bgColor + '">';
+            
+            if(tiles[i].iconType == "font") {
+                tilesHtml +=      '<span class="fontIcon ' + tiles[i].icon + '"></span>';                                    
+            }
+            
+             tilesHtml +=         '<label class="name">'
+                     +              tiles[i].name
+                     +            '</label>'
+                     +        '</div>'
+                     +     '</div>';
+            
+            if(tiles[i].top > highestTop) {highestTop = tiles[i].top;}
         }
         
+        
+        //now add a div to clear some space out, as all tiles are position abslute
+        highestTop += big_tile_size;
+        tilesHtml += '<div style="clear:both; position:absolute; top: ' +highestTop+ 'px; left: 10px; right: 10px; height:30px;"></div>';
+        
         $('.tiles-container').html(tilesHtml);
+        
+        $('.tiles-container').css({
+            "height": highestTop + 'px'
+        });
     }
     
     function doTilify () {
@@ -412,7 +444,7 @@ function tilify (tiles) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-
+ 
 /********************************************************************************************************
 ************ Here I will Try to Implement Dragging and Repositioning Tile *******************************
 ********************************************************************************************************/
@@ -499,6 +531,7 @@ function tilify (tiles) {
         
     });
     
+    var cornerSensingDistance = 30;
     $('body').on('mousemove', function (ev) {
         //console.log('mouse is moving...');
         
@@ -514,7 +547,7 @@ function tilify (tiles) {
             var newTop = tileTop + diffY;
             
             for (var i in tiles) {
-                if(dragTileId != tiles[i].id && Math.abs(tiles[i].left - tileLeft) < 20 && Math.abs(tiles[i].top - tileTop) < 20) {
+                if(dragTileId != tiles[i].id && Math.abs(tiles[i].left - tileLeft) < (tiles[i].width/2) && Math.abs(tiles[i].top - tileTop) < (tiles[i].height/2)) {
                     //console.log(tiles[i].id + " can be moved...");
                     $('.tile').removeClass('shift-effect');
                     $('#' + tiles[i].id).addClass('shift-effect');
@@ -534,7 +567,7 @@ function tilify (tiles) {
 //            console.log('hovering on tile ' + $(ev.target).closest('.tile').attr('id'));
 //        }
 //    });
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////// End of Custom DnD /////////////////////////////////////////////////
 
 }
     
