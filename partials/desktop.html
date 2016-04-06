@@ -1,5 +1,5 @@
-<div class="tiles-container"> 
-    <div data-ng-mousedown="dragStart($event)" data-ng-mouseup="dragEnd($event)" data-ng-mousemove="dragMove($event)" ng-touchstart="dragStart($event)" ng-touchend="dragEnd($event)" ng-touchmove="dragMove($event)" data-ng-repeat="tile in TM.tiles" class="tile {{tile.size}}" id="{{tile.id}}" data-ng-attr-style="top:{{tile.top}}px; left:{{tile.left + 'px'}}; width:{{tile.width}}px; height:{{tile.height}}px;" data-gridid="{{tile.gridId}}">
+<div class="tiles-container" ng-class="page_Width_Class"> 
+    <div id={{tile.id}} ng-mousedown="dragStart($event)" ng-mouseup="dragEnd($event)" ng-mouseleave="dragEnd($event)" ng-mousemove="dragMove($event)" ng-touchstart="dragStart($event)" ng-touchend="dragEnd($event)" ng-touchmove="dragMove($event)" data-ng-repeat="tile in TM.tiles" class="tile {{tile.size}}" id="{{tile.id}}" ng-style="tile.styleObj" data-ng-attr-style="top:{{tile.top}}px; left:{{tile.left}}px; width:{{tile.width}}px; height:{{tile.height}}px;" data-gridid="{{tile.gridId}}">
          <div class="tileInnerContainer" data-ng-attr-style="background:{{tile.bgColor}}">
             <span class="fontIcon {{tile.icon}}" data-ng-attr-style="font-size:{{tile.height / 2}}px; margin-top:{{tile.height / 8}}px;"></span>                                    
             <label class="name">
