@@ -10,13 +10,6 @@
             var TM = {};    //TM = Tile Manager
             TM.tiles = res.data
             $scope.TM = tilify(TM);
-            console.log($scope.TM);
-            
-            $scope.ngTouchStart = function (ev) {console.log("inside ngTouchStart");};
-            $scope.ngTouchEnd = function (ev) {console.log("inside ngTouchEnd");};
-            $scope.ngMouseUp = function (ev) {console.log("inside ngMouseUp");};
-            $scope.ngMouseDown = function (ev) {console.log("inside ngMouseDown");};
-            
             
             //The Drag Variables
             var isDragging = false;
@@ -89,10 +82,9 @@
                     TM.tiles = newTiles;
                     TM.isRetilify = true;
                     $scope.TM = tilify(TM);                    
-                    console.log($scope.TM);
+                    //console.log($scope.TM);
                 } 
                 else {
-                    console.log("top="+top);
                     $('#' + dragTileId).css({
                         "left": left,
                         "top": top
@@ -193,6 +185,18 @@ function tilify (TM) {
         big_tile_size = medium_tile_size * 2;
         
         $('.tiles-container').removeClass('xs sm md lg').addClass(page_Width_Class);
+    }
+    
+    
+    /*
+    * In Mobile, all big tiles should be converted to medium
+    */
+    function noBigTileInXS () {
+        if(page_Width_Class == "xs") {
+            for(var i in tiles) {
+                tiles[i].size = (tiles[i].size == "big") ? "medium" : tiles[i].size;
+            }
+        }
     }
     
     
@@ -375,6 +379,7 @@ function tilify (TM) {
     function doTilify () {
         //initVars();
         calculateWidths();
+        noBigTileInXS();
         makeGrids();        
         mapTilesToGrid();
         
@@ -454,109 +459,109 @@ function tilify (TM) {
 /********************************************************************************************************
 ************ Here I will Try to Implement Dragging and Repositioning Tile *******************************
 ********************************************************************************************************/
-    function makeTilesDraggable () {
-        var isDragging = false;
-        var dragTileId = null;
-        var iniMX = 0, iniMY = 0;
-
-//        $('body').on('mousedown', '.tile', function(ev){
+//    function makeTilesDraggable () {
+//        var isDragging = false;
+//        var dragTileId = null;
+//        var iniMX = 0, iniMY = 0;
 //
-//            //if already dragging some tile, then return
-//            if(isDragging) {return;}
+////        $('body').on('mousedown', '.tile', function(ev){
+////
+////            //if already dragging some tile, then return
+////            if(isDragging) {return;}
+////
+////            dragTileId = $(ev.target).closest('.tile').attr('id');
+////            $('#' + dragTileId).css('z-index', 11);
+////            isDragging = true;
+////            $('body').css('overflow','hidden');
+////            iniMX = ev.pageX;
+////            iniMY = ev.pageY;
+////        });
 //
-//            dragTileId = $(ev.target).closest('.tile').attr('id');
-//            $('#' + dragTileId).css('z-index', 11);
-//            isDragging = true;
-//            $('body').css('overflow','hidden');
-//            iniMX = ev.pageX;
-//            iniMY = ev.pageY;
+//        $('body').on('mouseup mouseleave', '.tile', function(ev) {
+//            isDragging = false;
+//            $('body').trigger('click');
+//            $('body').css('overflow','auto');
+//            if(dragTileId == null) {return;}
+//            $('#' + dragTileId).css('z-index', 10);
+//            var gridId = $('#' + dragTileId).attr('data-gridid');
+//            var left = grids[gridId].left;
+//            var top = grids[gridId].top;
+//
+//            //get the element to be shifted
+//            var tileToShiftId = $('.shift-effect').attr('id');
+//            $('.tile').removeClass('shift-effect');
+//
+//
+//            /*
+//            * we will loop thru tiles array and insert dragTile just 
+//            * before tileToShift
+//            */
+//            var newTiles = [];
+//            var dragTileObj = {};
+//            var dragTileInsertIndex = 0;
+//            var counter = -1;
+//            if (tileToShiftId != undefined && dragTileId != null) {
+//                for(var i in tiles) {
+//                    if (tiles[i].id == tileToShiftId) {
+//                        counter++;
+//                        newTiles.push(null); //later we will insert dragTileObj here
+//                        dragTileInsertIndex = counter;
+//                        counter++;
+//                        newTiles.push(tiles[i]);
+//                    }
+//                    else if(tiles[i].id == dragTileId) {
+//                        dragTileObj = tiles[i];
+//                    }
+//                    else {
+//                        counter++;
+//                        newTiles.push(tiles[i]);
+//                    }
+//                }
+//
+//                newTiles[dragTileInsertIndex] = dragTileObj;
+//                tiles = newTiles;
+//                dragTileId = null;
+//                reTilify();
+//            } 
+//            else {
+//                $('#' + dragTileId).css({
+//                    "left": left,
+//                    "top": top
+//                });
+//                dragTileId = null;
+//            }
+//
 //        });
-
-        $('body').on('mouseup mouseleave', '.tile', function(ev) {
-            isDragging = false;
-            $('body').trigger('click');
-            $('body').css('overflow','auto');
-            if(dragTileId == null) {return;}
-            $('#' + dragTileId).css('z-index', 10);
-            var gridId = $('#' + dragTileId).attr('data-gridid');
-            var left = grids[gridId].left;
-            var top = grids[gridId].top;
-
-            //get the element to be shifted
-            var tileToShiftId = $('.shift-effect').attr('id');
-            $('.tile').removeClass('shift-effect');
-
-
-            /*
-            * we will loop thru tiles array and insert dragTile just 
-            * before tileToShift
-            */
-            var newTiles = [];
-            var dragTileObj = {};
-            var dragTileInsertIndex = 0;
-            var counter = -1;
-            if (tileToShiftId != undefined && dragTileId != null) {
-                for(var i in tiles) {
-                    if (tiles[i].id == tileToShiftId) {
-                        counter++;
-                        newTiles.push(null); //later we will insert dragTileObj here
-                        dragTileInsertIndex = counter;
-                        counter++;
-                        newTiles.push(tiles[i]);
-                    }
-                    else if(tiles[i].id == dragTileId) {
-                        dragTileObj = tiles[i];
-                    }
-                    else {
-                        counter++;
-                        newTiles.push(tiles[i]);
-                    }
-                }
-
-                newTiles[dragTileInsertIndex] = dragTileObj;
-                tiles = newTiles;
-                dragTileId = null;
-                reTilify();
-            } 
-            else {
-                $('#' + dragTileId).css({
-                    "left": left,
-                    "top": top
-                });
-                dragTileId = null;
-            }
-
-        });
-
-        var cornerSensingDistance = 30;
-        $('body').on('mousemove', function (ev) {
-            if (isDragging) {
-                var diffX = ev.pageX - iniMX;
-                var diffY = ev.pageY - iniMY;
-                iniMX = ev.pageX;
-                iniMY = ev.pageY;
-
-                var tileLeft = parseInt($('#' + dragTileId).css('left'));
-                var tileTop = parseInt($('#' + dragTileId).css('top'));
-                var newLeft = tileLeft + diffX;
-                var newTop = tileTop + diffY;
-
-                for (var i in tiles) {
-                    if(dragTileId != tiles[i].id && Math.abs(tiles[i].left - tileLeft) < (tiles[i].width/2) && Math.abs(tiles[i].top - tileTop) < (tiles[i].height/2)) {
-                        //console.log(tiles[i].id + " can be moved...");
-                        $('.tile').removeClass('shift-effect');
-                        $('#' + tiles[i].id).addClass('shift-effect');
-                        break;
-                    }
-                }
-
-                $('#' + dragTileId).css({
-                    "left": newLeft,
-                    "top": newTop
-                });
-            }
-        });
-    }
+//
+//        var cornerSensingDistance = 30;
+//        $('body').on('mousemove', function (ev) {
+//            if (isDragging) {
+//                var diffX = ev.pageX - iniMX;
+//                var diffY = ev.pageY - iniMY;
+//                iniMX = ev.pageX;
+//                iniMY = ev.pageY;
+//
+//                var tileLeft = parseInt($('#' + dragTileId).css('left'));
+//                var tileTop = parseInt($('#' + dragTileId).css('top'));
+//                var newLeft = tileLeft + diffX;
+//                var newTop = tileTop + diffY;
+//
+//                for (var i in tiles) {
+//                    if(dragTileId != tiles[i].id && Math.abs(tiles[i].left - tileLeft) < (tiles[i].width/2) && Math.abs(tiles[i].top - tileTop) < (tiles[i].height/2)) {
+//                        //console.log(tiles[i].id + " can be moved...");
+//                        $('.tile').removeClass('shift-effect');
+//                        $('#' + tiles[i].id).addClass('shift-effect');
+//                        break;
+//                    }
+//                }
+//
+//                $('#' + dragTileId).css({
+//                    "left": newLeft,
+//                    "top": newTop
+//                });
+//            }
+//        });
+//    }
     
 //////////////////////////// End of Custom DnD /////////////////////////////////////////////////
 

@@ -15,6 +15,10 @@ ul {
     margin: 0;
 }
 
+label {
+    font-weight: normal;
+}
+
 .container-fluid {
     padding: 0 10px;
 }
@@ -95,6 +99,47 @@ ul {
     margin-top: 60px;
     color: #FFF;
 }
+
+.topPanel {
+    margin-top: 20px;
+    color: #FFF;
+}
+
+.topPanel .welcomeTxt {
+    font-size: 30px;
+}
+
+.topPanel #microProfile {
+    float: right;
+    position: relative;
+/*    border: 1px solid #FFF;*/
+    height: 60px;
+    width: 300px;
+}
+
+.topPanel #microProfile * {
+    position: absolute;
+}
+
+.topPanel #microProfile #userName {
+    font-size: 22px;
+    right: 60px;
+    top: 0;
+}
+
+.topPanel #microProfile #profilePic {
+    height: 50px;
+    width: 50px;
+    float: right;
+    right: 0;
+    top: 0;
+}
+
+.topPanel #microProfile .desc {
+    top: 27px;
+    right: 60px;
+    font-size: 15px;
+}
 /*
 
 .tile.medium .fontIcon,
@@ -123,11 +168,21 @@ ul {
         color: #FFFFFF;
         background: #000;
         font-size: 16px;
+        padding: 20px 15px;
+    }
+    
+    .taskbar .navbar {
+        min-height: 30px;
     }
     
     .taskbar .navbar-inverse {
 /*        background: rgb(63, 71, 121);*/
-        background: rgb(30, 40, 100);
+        background: rgb(8, 12, 37);
+    }
+    
+    .taskbar *,
+    .taskbar .navbar-nav>li>a{
+        line-height: 0;
     }
     
 }
