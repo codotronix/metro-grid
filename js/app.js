@@ -1,3 +1,3 @@
 (function(){
-    var barickOSApp = angular.module('barickOSApp', ['ngRoute']);
+    var barickOSApp = angular.module('barickOSApp', ['ngRoute', 'ngTouch']);
 })()

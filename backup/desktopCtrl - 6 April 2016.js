@@ -7,9 +7,7 @@
     .controller('desktopCtrl', ['$scope', '$http', function($scope, $http){
         $http.get('data/tiles.json').then(function(res){
             //$scope.tiles = res.data;
-            var TM = {};    //TM = Tile Manager
-            TM.tiles = res.data
-            $scope.TM = tilify(TM);
+            $scope.TM = tilify(res.data);
             console.log($scope.TM);
             
             $scope.ngTouchStart = function (ev) {console.log("inside ngTouchStart");};
@@ -57,10 +55,11 @@
                 var newTiles = [];
                 var dragTileObj = {};
                 var dragTileInsertIndex = 0;
-                var counter = -1;                
+                var counter = -1;
+                var tile = null;
                 if (tileToShiftId != undefined && dragTileId != null) {
                     for(var i in $scope.TM.tiles) {
-                        var tile = $scope.TM.tiles[i];
+                        tile = $scope.TM.tiles[i];
                         if (tile.id == tileToShiftId) {
                             counter++;
                             newTiles.push(null); //later we will insert dragTileObj here
@@ -78,23 +77,19 @@
                     }
 
                     newTiles[dragTileInsertIndex] = dragTileObj;
+                    $scope.TM.tiles = newTiles;
                     dragTileId = null;
-                    //console.log(newTiles);
-                    var TM = $scope.TM;
-                    TM.tiles = newTiles;
-                    TM.isRetilify = true;
-                    $scope.TM = tilify(TM);                    
-                    console.log($scope.TM);
+                    reTilify();
                 } 
                 else {
-                    console.log("top="+top);
                     $('#' + dragTileId).css({
                         "left": left,
                         "top": top
                     });
                     dragTileId = null;
                 }
-            }            
+            }
+            
             
             
             $scope.dragMove = function (ev) {
@@ -108,9 +103,9 @@
                     var tileTop = parseInt($('#' + dragTileId).css('top'));
                     var newLeft = tileLeft + diffX;
                     var newTop = tileTop + diffY;
-                    
+                    var tile = null;
                     for (var i in $scope.TM.tiles) {
-                        var tile = $scope.TM.tiles[i];
+                        tile = $scope.TM.tiles[i];
                         if(dragTileId != tile.id && Math.abs(tile.left - tileLeft) < (tile.width/2) && Math.abs(tile.top - tileTop) < (tile.height/2)) {
                             //console.log(tiles[i].id + " can be moved...");
                             $('.tile').removeClass('shift-effect');
@@ -137,25 +132,35 @@
 /*******************************************************************************
 *************************** The Helper Functions *******************************
 *******************************************************************************/
-function tilify (TM) {
-    var tiles = TM.tiles,
-        isRetilify = TM.isRetilify || false,
-        big_tile_size = TM.big_tile_size || 0,
-        medium_tile_size = TM.medium_tile_size || 0,
-        small_tile_size = TM.small_tile_size || 0,
-        page_Width_Class = TM.page_Width_Class || 'xs',
-        grids = TM.grids || {},
-        gridsPerRow = TM.gridsPerRow || 12,       //12 sm and md, 16 for lg and 8 for xs
+function tilify (tiles, isRetilify) {
+    var TM = {},                //TM = Tiles Manager
+        big_tile_size = 0,
+        medium_tile_size = 0,
+        small_tile_size = 0,
+        page_Width_Class = 'xs',
+        grids = {},
+        gridsPerRow = 12,       //12 sm and md, 16 for lg and 8 for xs
         colorCodes = ["#632F00", "#B01E00", "#C1004F", "#4617B4", "#008287", "#199900", "#00C13F", "#FF2E12", "#FF1D77", "#AA40FF", "#1FAEFF", "#000", "#00A3A3", "#FE7C22"];
     
- 
+    /*
+    * Initialize all global variables
+    */
+//    function initVars(){
+//        big_tile_size = 0;
+//        medium_tile_size = 0;
+//        small_tile_size = 0;
+//        smallTiles = [];
+//        mediumTiles = [];
+//        bigTiles = [];
+//    }
+    
+    
     /*
     * calculate height and width of the tiles depending on the tiles_container width
     */
     function calculateWidths () {
         
-        var scrollBarWidth = 17;                                    //17px for scrollbar
-        var tiles_Container_width = $('.tiles-container').width() - scrollBarWidth;
+        var tiles_Container_width = $('.tiles-container').width() - 17;     //17px for scrollbar 
         page_Width_Class = 'xs';
         var all_Possible_Width_Classes = 'xs sm md lg';
         
@@ -176,7 +181,7 @@ function tilify (TM) {
         else {
             page_Width_Class = 'xs';   
             gridsPerRow = 8;
-            small_tile_size = Math.floor((tiles_Container_width + scrollBarWidth) / gridsPerRow);
+            small_tile_size = Math.floor(tiles_Container_width / gridsPerRow);
         }
         
         medium_tile_size = small_tile_size * 2;
@@ -361,36 +366,87 @@ function tilify (TM) {
         }
     }
     
-      
+    
+    /*
+    * This function puts all CSS Styles in a string, 
+    * and adds it to the style property of tile so that it can be used in ng-style
+    */
+//    function makeStyleObj () {
+//        for (var i in tiles) {
+//            //tiles[i].style = "top: " + tiles[i].top + "px; left:" + tiles[i].left + "px; width:" + tiles[i].width + "px; height:" +{{tiles[i].height}} + "px;";
+//            
+//            tiles[i].style = {
+//                "top": tiles[i].top + "px",
+//                "left": tiles[i].left + "px",
+//                "width": tiles[i].width + "px",
+//                "height": tiles[i].height + "px"
+//            }
+//        }
+//    }
+    
+    
+    
+    /*
+    * This function will go thru tiles,
+    * check their gridId
+    * check that grids top and left from grid object
+    * prepare the html and dump it to DOM
+    */
+//    
+//    function drawTiles () {
+//        var tilesHtml = '';
+//        var highestTop = 0;
+//        for(var i in tiles) {
+//            tilesHtml +=  '<div class="tile ' + tiles[i].size + ' real" id="' + tiles[i].id + '" style="top:' +tiles[i].top+ 'px; left:' +tiles[i].left+ 'px; width:' +tiles[i].width+ 'px; height:' +tiles[i].height+ 'px;" data-gridid="' +tiles[i].gridId+ '">'
+//                        +     '<div class="tileInnerContainer" style="background:' + tiles[i].bgColor + '">';
+//            
+//            if(tiles[i].iconType == "font") {
+//                tilesHtml +=      '<span class="fontIcon ' + tiles[i].icon + '"></span>';                                    
+//            }
+//            
+//             tilesHtml +=         '<label class="name">'
+//                     +              tiles[i].name
+//                     +            '</label>'
+//                     +        '</div>'
+//                     +     '</div>';
+//            
+//            if(tiles[i].top > highestTop) {highestTop = tiles[i].top;}
+//        }
+//        
+//        
+//        //now add a div to clear some space out, as all tiles are position abslute
+//        highestTop += big_tile_size;
+//        tilesHtml += '<div style="clear:both; position:absolute; top: ' +highestTop+ 'px; left: 10px; right: 10px; height:30px;"></div>';
+//        
+//        $('.tiles-container').html(tilesHtml);
+//        
+//        $('.tiles-container').css({
+//            "height": highestTop + 'px'
+//        });
+//    }
+    
     function doTilify () {
         //initVars();
         calculateWidths();
         makeGrids();        
         mapTilesToGrid();
+        //makeTilesDraggable();
+        //makeStyleObj();
+        //drawGrid();
+        //drawTiles();
+        //tapNHoldTile();
         
         TM.tiles = tiles;
-        TM.grids = grids;
-        TM.big_tile_size = big_tile_size;
-        TM.medium_tile_size = medium_tile_size;
-        TM.small_tile_size = small_tile_size;
-        TM.page_Width_Class = page_Width_Class;
-        TM.gridsPerRow = gridsPerRow;
     }
     
     function reTilify () {
         resetGrids();
         mapTilesToGrid();
-        
-        TM.tiles = tiles;
+        //drawTiles();
     }
     
-    if (isRetilify) {
-        reTilify();
-    } else {
-        doTilify();
-    }
+    doTilify();
     return(TM);
-    
     
 //    $(window).resize(function(){
 //        setTimeout(doTilify, 200);
