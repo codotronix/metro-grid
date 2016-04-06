@@ -6,13 +6,17 @@
 }
 
 body { 
-    background: purple;
+    background: rgb(23,0,82);
 /*    padding-bottom: 70px; */
 }
 
 ul {
     padding: 0;
     margin: 0;
+}
+
+.container-fluid {
+    padding: 0 10px;
 }
 
 .shift-effect {
@@ -26,12 +30,14 @@ ul {
     padding-bottom: 70px;
 }
 
+/*
 .grid {
     position: absolute;
     border: 1px solid lightgray;
     z-index: 9;
     display: none;
 }
+*/
 
 .tile {
     list-style: none;
@@ -89,6 +95,7 @@ ul {
     margin-top: 60px;
     color: #FFF;
 }
+/*
 
 .tile.medium .fontIcon,
 .tile.rectangle .fontIcon{
@@ -105,11 +112,7 @@ ul {
     font-size: 50px;
     margin-top: 40px;
 }
-
-.s2mC,
-.m2bC {
-    float: left;
-}
+*/
 
 @media (min-width: 768px) {
     .taskbar .container-fluid {
@@ -121,5 +124,11 @@ ul {
         background: #000;
         font-size: 16px;
     }
+    
+    .taskbar .navbar-inverse {
+/*        background: rgb(63, 71, 121);*/
+        background: rgb(30, 40, 100);
+    }
+    
 }
 

@@ -1,9 +1,32 @@
-<div class="tiles-container">    
+<div class="tiles-container"> 
+    <div data-ng-mousedown="dragStart($event)" data-ng-mouseup="dragEnd($event)" data-ng-mousemove="dragMove($event)" ng-touchstart="dragStart($event)" ng-touchend="dragEnd($event)" ng-touchmove="dragMove($event)" data-ng-repeat="tile in TM.tiles" class="tile {{tile.size}}" id="{{tile.id}}" data-ng-attr-style="top:{{tile.top}}px; left:{{tile.left + 'px'}}; width:{{tile.width}}px; height:{{tile.height}}px;" data-gridid="{{tile.gridId}}">
+         <div class="tileInnerContainer" data-ng-attr-style="background:{{tile.bgColor}}">
+            <span class="fontIcon {{tile.icon}}" data-ng-attr-style="font-size:{{tile.height / 2}}px; margin-top:{{tile.height / 8}}px;"></span>                                    
+            <label class="name">
+                {{tile.id}}
+            </label>
+         </div>
+    </div>
+  
+  <!-- IE FIX... in IE style="width:{{someValue}}" doesnot work... but ng-attr-style="width:{{someValue}}" works -->
 <!--
-    <div class="tile" data-ng-repeat="tile in tiles" style="width:{{tile.width}}; height: {{tile.height}}">
-        <div class="tileInnerContainer">
-            {{tile.name}}
-        </div>
+    <div data-ng-mousedown="ngMouseDown($event)" data-ng-mouseup="ngMouseUp($event)" data-ng-touchstart="ngTouchStart($event)" data-ng-touchend="ngTouchEnd($event)" data-ng-repeat="tile in TM.tiles" class="tile {{tile.size}}" id="{{tile.id}}" data-ng-style="tile.style" data-gridid="{{tile.gridId}}">
+         <div class="tileInnerContainer" ng-attr-style="background:{{tile.bgColor}}">
+            <span class="fontIcon {{tile.icon}}"></span>                                    
+            <label class="name">
+                {{tile.name}}
+            </label>
+         </div>
+    </div>
+-->
+   
+    
+    <!-- place the cleardiv -->
+    <div data-ng-attr-style="position:absolute; top:{{TM.clearSpaceDivPosition + 50}}px; left: 10px; right: 10px; height: 80px;"></div>
+
+<!--
+    <div data-ng-repeat="tile in TM.tiles" class="tile {{tile.size}}" id="{{tile.id}}" style="top:{{tile.top}}px; left:{{tile.left}}px; width:{{tile.width}}px; height:{{tile.height}}px;">
+        {{tile.name}}
     </div>
 -->
 </div>

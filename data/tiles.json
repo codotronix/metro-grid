@@ -41,7 +41,8 @@
         "name": "My Pictures",
         "size": "big",
         "iconType": "font",
-        "icon": "fa fa-file-image-o"
+        "icon": "fa fa-file-image-o",
+        "bgColor": "#B01E00"
     },
     {
         "id": "tile6",
@@ -123,21 +124,24 @@
         "name": "Planet App",
         "size": "medium",
         "iconType": "font",
-        "icon": "fa fa-globe"
+        "icon": "fa fa-globe",
+        "bgColor": "blue"
     },
     {
         "id": "tile17",
         "name": "My Videos",
         "size": "rectangle",
         "iconType": "font",
-        "icon": "fa fa-film"
+        "icon": "fa fa-film",
+        "bgColor": "#000"
     },
     {
         "id": "tile19",
         "name": "Message Box",
         "size": "medium",
         "iconType": "font",
-        "icon": "fa fa-envelope"
+        "icon": "fa fa-envelope",
+        "bgColor": "#386D7D"
     },
     {
         "id": "tile20",
