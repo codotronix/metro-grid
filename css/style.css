@@ -34,14 +34,12 @@ label {
     padding-bottom: 70px;
 }
 
-/*
 .grid {
     position: absolute;
     border: 1px solid lightgray;
     z-index: 9;
-    display: none;
+    color: #FFF;
 }
-*/
 
 .tile {
     list-style: none;

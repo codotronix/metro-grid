@@ -15,6 +15,7 @@
             var isDragging = false;
             var dragTileId  = null;
             var iniMX = 0, iniMY = 0; //initial mouseX and mouseY when drag Starts
+            var dto = null;
             
             $scope.dragStart = function(ev){    //console.log(ev);
                 ev.stopPropagation();
@@ -24,25 +25,41 @@
                 //if already dragging some tile, then return
                 if(isDragging) {return;}
                 dragTileId = $(ev.target).closest('.tile').attr('id');
-                $('#' + dragTileId).css('z-index', 11);
+                //$('#' + dragTileId).css('z-index', 11);                
                 isDragging = true;
                 //$('body').css('overflow','hidden');
                 iniMX = ev.pageX;
                 iniMY = ev.pageY;
                 //console.log("Drag Start... dragTileId="+dragTileId+ " iniMX="+iniMX+ " iniMY="+iniMY);
+                
+                //identify dto
+                for (var i in $scope.TM.tiles) {
+                    if($scope.TM.tiles[i].id == dragTileId) {
+                        dto = $scope.TM.tiles[i];
+                        console.log("dto identified");
+                        break;
+                    }
+                }
+                
+                dto.styleObj = dto.styleObj || {};
+                dto.styleObj["z-index"] = 11;
             };
             
             
             $scope.dragEnd = function(ev) {     //console.log(ev);
                 ev.stopPropagation();
                 isDragging = false;
-                $('body').trigger('click');
+                $('body').trigger('click');                
                 //$('body').css('overflow','auto');
                 //console.log("Drag End... dragTileId="+dragTileId);
-                if(dragTileId == null) {return;}
-                $('#' + dragTileId).css('z-index', 10);
-                var left = parseInt($('#' + dragTileId).css('left'));
-                var top = parseInt($('#' + dragTileId).css('top'));
+                if(dragTileId == null || dto == null) {return;}
+                //$('#' + dragTileId).css('z-index', 10);
+                dto.styleObj["z-index"] = 10;
+//                var left = parseInt($('#' + dragTileId).css('left'));
+//                var top = parseInt($('#' + dragTileId).css('top'));
+                var gridId = $('#' + dragTileId).attr('data-gridid');
+                var left = $scope.TM.grids[gridId].left;
+                var top = $scope.TM.grids[gridId].top;
 
                 //get the element to be shifted
                 var tileToShiftId = $('.shift-effect').attr('id');
@@ -79,18 +96,24 @@
                     dragTileId = null;
                     //console.log(newTiles);
                     var TM = $scope.TM;
+                    console.log(TM.tiles);
                     TM.tiles = newTiles;
+                    console.log(TM.tiles);
                     TM.isRetilify = true;
                     $scope.TM = tilify(TM);                    
                     //console.log($scope.TM);
                 } 
                 else {
-                    $('#' + dragTileId).css({
-                        "left": left,
-                        "top": top
-                    });
+                    dto.top = top;
+                    dto.left = left;
+//                    $('#' + dragTileId).css({
+//                        "left": left,
+//                        "top": top
+//                    });
                     dragTileId = null;
                 }
+                
+                dto = null;
             }            
             
             
@@ -120,11 +143,14 @@
                             break;
                         }
                     }
+                    
+                    dto.top = newTop;
+                    dto.left = newLeft;
 
-                    $('#' + dragTileId).css({
-                        "left": newLeft,
-                        "top": newTop
-                    });
+//                    $('#' + dragTileId).css({
+//                        "left": newLeft,
+//                        "top": newTop
+//                    });
                 }
             }
             
@@ -267,7 +293,7 @@ function tilify (TM) {
         for (var key in grids) {
             gridHTML += '<div id="' + key + '" class="grid ' +grids[key].type+ '" style="top:' +grids[key].top+ 'px; left:' +grids[key].left+ 'px; width:' +small_tile_size+ 'px; height:' +small_tile_size+ 'px;">' +key+ '</div>';
         }
-        $('.tiles-container').html(gridHTML);
+        $('.tiles-container').append(gridHTML);
     }
     
     
@@ -382,6 +408,7 @@ function tilify (TM) {
         noBigTileInXS();
         makeGrids();        
         mapTilesToGrid();
+        drawGrid();
         
         TM.tiles = tiles;
         TM.grids = grids;
