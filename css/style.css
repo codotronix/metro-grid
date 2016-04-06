@@ -63,11 +63,11 @@ ul {
 }
 
 .xs .tile {
-    padding: 1px;
+    padding: 2.5px;
 }
 
 .sm .tile {
-    padding: 3px;
+    padding: 4px;
 }
 
 .md .tile {

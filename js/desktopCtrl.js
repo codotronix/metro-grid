@@ -21,26 +21,31 @@
             //The Drag Variables
             var isDragging = false;
             var dragTileId  = null;
-            var iniMX = 0, iniMY = 0; //iragStartsnitial mouseX and mouseY when d
+            var iniMX = 0, iniMY = 0; //initial mouseX and mouseY when drag Starts
             
-            $scope.dragStart = function(ev){
+            $scope.dragStart = function(ev){    //console.log(ev);
+                ev.stopPropagation();
+                //MouseEvent or TouchEvent... Let's bring to same platform
+                ev.pageX = ev.pageX || ev.originalEvent.changedTouches[0].pageX;              
+                ev.pageY = ev.pageY || ev.originalEvent.changedTouches[0].pageY;                            
                 //if already dragging some tile, then return
                 if(isDragging) {return;}
                 dragTileId = $(ev.target).closest('.tile').attr('id');
                 $('#' + dragTileId).css('z-index', 11);
                 isDragging = true;
-                $('body').css('overflow','hidden');
+                //$('body').css('overflow','hidden');
                 iniMX = ev.pageX;
                 iniMY = ev.pageY;
-                console.log("Drag Start... dragTileId="+dragTileId+ " iniMX="+iniMX+ " iniMY="+iniMY);
+                //console.log("Drag Start... dragTileId="+dragTileId+ " iniMX="+iniMX+ " iniMY="+iniMY);
             };
             
             
-            $scope.dragEnd = function(ev) {
+            $scope.dragEnd = function(ev) {     //console.log(ev);
+                ev.stopPropagation();
                 isDragging = false;
                 $('body').trigger('click');
-                $('body').css('overflow','auto');
-                console.log("Drag End... dragTileId="+dragTileId);
+                //$('body').css('overflow','auto');
+                //console.log("Drag End... dragTileId="+dragTileId);
                 if(dragTileId == null) {return;}
                 $('#' + dragTileId).css('z-index', 10);
                 var left = parseInt($('#' + dragTileId).css('left'));
@@ -97,8 +102,13 @@
             }            
             
             
-            $scope.dragMove = function (ev) {
+            $scope.dragMove = function (ev) {   //console.log(ev);
                 if (isDragging) {
+                    ev.stopPropagation();
+                    ev.preventDefault();
+                    //MouseEvent or TouchEvent... Let's bring to same platform
+                    ev.pageX = ev.pageX || ev.originalEvent.changedTouches[0].pageX;              
+                    ev.pageY = ev.pageY || ev.originalEvent.changedTouches[0].pageY;
                     var diffX = ev.pageX - iniMX;
                     var diffY = ev.pageY - iniMY;
                     iniMX = ev.pageX;
@@ -175,7 +185,7 @@ function tilify (TM) {
         } 
         else {
             page_Width_Class = 'xs';   
-            gridsPerRow = 8;
+            gridsPerRow = 4;
             small_tile_size = Math.floor((tiles_Container_width + scrollBarWidth) / gridsPerRow);
         }
         
