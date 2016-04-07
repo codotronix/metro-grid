@@ -4,7 +4,7 @@
     /*****************************************************************************
      * The desktopCtrl
      *****************************************************************************/    
-    .controller('desktopCtrl', ['$scope', '$http', function($scope, $http){
+    .controller('desktopCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
         $http.get('data/tiles.json').then(function(res){
             //$scope.tiles = res.data;
             var TM = {};    //TM = Tile Manager
@@ -15,9 +15,12 @@
             var isDragging = false;
             var dragTileId  = null;
             var iniMX = 0, iniMY = 0; //initial mouseX and mouseY when drag Starts
-            var dto = null;
+            var dto = null;            //drag tile object
             
             $scope.dragStart = function(ev){    //console.log(ev);
+                console.log("$rootScope.flags.tileOpInProg="+$rootScope.flags.tileOpInProg+" and $rootScope.flags.tileMovementAllowed="+$rootScope.flags.tileMovementAllowed);
+                if($rootScope.flags.tileOpInProg || !$rootScope.flags.tileMovementAllowed) {return;}
+                $rootScope.flags.tileOpInProg = true;
                 ev.stopPropagation();
                 //MouseEvent or TouchEvent... Let's bring to same platform
                 ev.pageX = ev.pageX || ev.originalEvent.changedTouches[0].pageX;              
@@ -47,6 +50,8 @@
             
             
             $scope.dragEnd = function(ev) {     //console.log(ev);
+                if(!$rootScope.flags.tileOpInProg || !$rootScope.flags.tileMovementAllowed) {return;}
+                
                 ev.stopPropagation();
                 isDragging = false;
                 $('body').trigger('click');                
@@ -114,10 +119,13 @@
                 }
                 
                 dto = null;
+                $rootScope.flags.tileOpInProg = false;
             }            
             
             
             $scope.dragMove = function (ev) {   //console.log(ev);
+                if(!$rootScope.flags.tileOpInProg || !$rootScope.flags.tileMovementAllowed) {return;}
+                
                 if (isDragging) {
                     ev.stopPropagation();
                     ev.preventDefault();
@@ -408,7 +416,7 @@ function tilify (TM) {
         noBigTileInXS();
         makeGrids();        
         mapTilesToGrid();
-        drawGrid();
+        //drawGrid();
         
         TM.tiles = tiles;
         TM.grids = grids;

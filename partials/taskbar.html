@@ -21,13 +21,15 @@
         <li class="dropdown">
           <a href="javascript:void(0);" class="startBtn dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">START</a>
           <ul class="dropdown-menu">
+<!--
             <li><a href="javascript:void(0);">Action</a></li>
             <li><a href="javascript:void(0);">Another action</a></li>
             <li><a href="javascript:void(0);">Something else here</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="javascript:void(0);">Separated link</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="javascript:void(0);">One more separated link</a></li>
+-->
+            <li ng-click="$root.flags.tileMovementAllowed = !$root.flags.tileMovementAllowed; $event.stopPropagation();"><a href="javascript:void(0);">Tile Movement</a><span class="toggleBtn" ng-class="($root.flags.tileMovementAllowed) ? '' : 'off'"><span></span></span></li>
           </ul>
         </li>
       </ul>
