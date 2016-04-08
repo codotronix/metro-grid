@@ -17,7 +17,7 @@
             controller: 'tilesCtrl'
         })
         .when('/', {
-            redirectTo: '/desktop'
+            redirectTo: '/home'
         })
         .otherwise({
             redirectTo: '/'

@@ -243,3 +243,8 @@ label {
     
 }
 
+@media (max-width: 767px) {
+    .topPanel .welcomeTxt {
+        display: none;
+    }
+}
