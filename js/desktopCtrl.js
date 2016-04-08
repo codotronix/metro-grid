@@ -448,45 +448,45 @@ function tilify (TM) {
     //return(tiles);
     
         
-    var timeout_id = 0;
-    var hold_time = 700;
-    /*
-    * Code for Tap and Hold on a Tile
-    */
-    function tapNHoldTile () {
-        
-        $('.tile').mousedown(function(elem) {
-            timeout_id = setTimeout(function(){
-                showTileMenu(elem.target);
-            }, hold_time);
-        }).bind('mouseup mouseleave', function() {
-            clearTimeout(timeout_id);
-        });
-
-        function showTileMenu(elem) {
-          console.log($(elem).closest('.tile'));
-            
-            var tile = $(elem).closest('.tile');
-            var tileID = tile.attr('id');
-            var sizeToDo = '';
-            
-            if(tile.hasClass('small')) {sizeToDo = 'big';}
-            else if(tile.hasClass('big')) {sizeToDo = 'medium';}
-            else if(tile.hasClass('medium')) {sizeToDo = 'small';}
-            
-            modifyTile(tileID, "size", sizeToDo);
-        }
-    }
-    
-    function modifyTile(tileID, property, value){
-        for(var i in tiles) {
-            if (tiles[i].id == tileID) {
-                tiles[i][property] = value;
-                break;
-            }
-        }        
-        doTilify();
-    }
+//    var timeout_id = 0;
+//    var hold_time = 700;
+//    /*
+//    * Code for Tap and Hold on a Tile
+//    */
+//    function tapNHoldTile () {
+//        
+//        $('.tile').mousedown(function(elem) {
+//            timeout_id = setTimeout(function(){
+//                showTileMenu(elem.target);
+//            }, hold_time);
+//        }).bind('mouseup mouseleave', function() {
+//            clearTimeout(timeout_id);
+//        });
+//
+//        function showTileMenu(elem) {
+//          console.log($(elem).closest('.tile'));
+//            
+//            var tile = $(elem).closest('.tile');
+//            var tileID = tile.attr('id');
+//            var sizeToDo = '';
+//            
+//            if(tile.hasClass('small')) {sizeToDo = 'big';}
+//            else if(tile.hasClass('big')) {sizeToDo = 'medium';}
+//            else if(tile.hasClass('medium')) {sizeToDo = 'small';}
+//            
+//            modifyTile(tileID, "size", sizeToDo);
+//        }
+//    }
+//    
+//    function modifyTile(tileID, property, value){
+//        for(var i in tiles) {
+//            if (tiles[i].id == tileID) {
+//                tiles[i][property] = value;
+//                break;
+//            }
+//        }        
+//        doTilify();
+//    }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
     

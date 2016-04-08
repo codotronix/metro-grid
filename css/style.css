@@ -31,11 +31,15 @@ label {
     margin: 7px;
 }
 
+.drag-effect {
+    z-index: 111 !important;
+}
+
 .toggleBtn {
     display: inline-block;
     height: 20px;
     width: 20px;
-    border: 2px inset darkgray;
+    border: 2px solid darkgray;
 /*    background: gray;*/
     border-radius: 50%;
     position: absolute;
@@ -91,6 +95,30 @@ label {
     width: 100%;
     display: block;
     position: relative;
+}
+
+.tile .tileInnerContainer .tileMask {
+    position: absolute;
+    background: rgba(0,0,0,.6);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    display: none;
+}
+
+.resizeMode .tile .tileInnerContainer .tileMask {
+    display: block;
+}
+
+.tile .tileInnerContainer .resizeBtn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    color: aqua;
+    display: inline-block;
 }
 
 .xs .tile {
@@ -185,6 +213,7 @@ label {
     margin-top: 40px;
 }
 */
+
 
 @media (min-width: 768px) {
     .taskbar .container-fluid {
