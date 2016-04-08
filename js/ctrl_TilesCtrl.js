@@ -2,9 +2,12 @@
     angular.module('barickOSApp')
     .controller('tilesCtrl', ['$scope', '$http', '$rootScope', 'tileManager', function($scope, $http, $rootScope, tileManager) {
         
+        var grids;
+
         $http.get('data/TM.json').then(function(res){
             var TM = res.data;
             $scope.TM = tileManager.tilify(TM);
+            grids = tileManager.getGrids();
         }, function(err){
             console.log(err);
         });
@@ -23,12 +26,13 @@
             $scope.TM = tileManager.reTilify(TM);
         };
         
-        //The Drag Variables
-        var isDragging = false;
-        var dragTileId  = null;
+        //The Drag Variables        
         var iniMX = 0, iniMY = 0; //initial mouseX and mouseY when drag Starts
         $scope.dto = null;            //drag tile object => tile that is being dragged
-        $scope.sto = null;                  //shift tile object => tile to be shifted
+        $scope.sto = null;            //shift tile object => tile to be shifted
+        var stoIndex = 0;
+        var dtoIndex = 0;
+        var newTileOrder = [];
 
         $scope.dragStart = function(ev, tileID){    //console.log(ev);
             //console.log("$rootScope.flags.tileOpInProg="+$rootScope.flags.tileOpInProg+" and $rootScope.flags.tileMovementAllowed="+$rootScope.flags.tileMovementAllowed);
@@ -53,79 +57,58 @@
             if(!$rootScope.flags.tileOpInProg || !$rootScope.flags.tileMovementAllowed) {return;}
 
             ev.stopPropagation();
-            isDragging = false;
-            $('body').trigger('click');                
-            //$('body').css('overflow','auto');
-            //console.log("Drag End... dragTileId="+dragTileId);
-            if(dragTileId == null || $scope.dto== null) {return;}
-            //$('#' + dragTileId).css('z-index', 10);
-            dto.styleObj["z-index"] = 10;
-//                var left = parseInt($('#' + dragTileId).css('left'));
-//                var top = parseInt($('#' + dragTileId).css('top'));
-            var gridId = $('#' + dragTileId).attr('data-gridid');
-            var left = $scope.TM.grids[gridId].left;
-            var top = $scope.TM.grids[gridId].top;
 
-            //get the element to be shifted
-            var tileToShiftId = $('.shift-effect').attr('id');
-            $('.tile').removeClass('shift-effect');
+            //$('body').trigger('click');
+            if($scope.dto == null) {return;}
 
             /*
-            * we will loop thru tiles array and insert dragTile just 
-            * before tileToShift
+            * we will loop thru tileOrder  
+            * and insert dto just before/after sto in tileOrder
             */
-            var newTiles = [];
-            var dragTileObj = {};
-            var dragTileInsertIndex = 0;
-            var counter = -1;                
-            if (tileToShiftId != undefined && dragTileId != null) {
-                for(var i in $scope.TM.tiles) {
-                    var tile = $scope.TM.tiles[i];
-                    if (tile.id == tileToShiftId) {
-                        counter++;
-                        newTiles.push(null); //later we will insert dragTileObj here
-                        dragTileInsertIndex = counter;
-                        counter++;
-                        newTiles.push(tile);
-                    }
-                    else if(tile.id == dragTileId) {
-                        dragTileObj = tile;
-                    }
-                    else {
-                        counter++;
-                        newTiles.push(tile);
+            if ($scope.sto != null) {
+                stoIndex = $scope.TM.tileOrder.indexOf($scope.dto.id);
+                newTileOrder = [];
+
+                //if they are just neightbours, then just swap
+                if(Math.abs($scope.TM.tileOrder.indexOf($scope.dto.id) - $scope.TM.tileOrder.indexOf($scope.sto.id)) == 1) {
+                    newTileOrder = $scope.TM.tileOrder;
+                    var stoIndex = $scope.TM.tileOrder.indexOf($scope.sto.id);
+                    var dtoIndex = $scope.TM.tileOrder.indexOf($scope.dto.id);
+
+                    newTileOrder[stoIndex] = $scope.dto.id;
+                    newTileOrder[dtoIndex] = $scope.sto.id;
+                }
+                else {
+                    for(var i in $scope.TM.tileOrder) {
+                        if ($scope.TM.tileOrder[i] == $scope.dto.id) {
+                            continue;
+                        }
+                        else if ($scope.TM.tileOrder[i] == $scope.sto.id) {                        
+                            newTileOrder.push($scope.dto.id);
+                            newTileOrder.push($scope.sto.id);
+                        } else {
+                            newTileOrder.push($scope.TM.tileOrder[i]);
+                        }
                     }
                 }
 
-                newTiles[dragTileInsertIndex] = dragTileObj;
-                dragTileId = null;
-                //console.log(newTiles);
                 var TM = $scope.TM;
-                console.log(TM.tiles);
-                TM.tiles = newTiles;
-                console.log(TM.tiles);
-                TM.isRetilify = true;
-                $scope.TM = tilify(TM);                    
-                //console.log($scope.TM);
+                TM.tileOrder = newTileOrder;
+                $scope.TM = tileManager.reTilify(TM);
             } 
             else {
-                dto.top = top;
-                dto.left = left;
-//                    $('#' + dragTileId).css({
-//                        "left": left,
-//                        "top": top
-//                    });
-                dragTileId = null;
+                dto.top = grids[dto.gridId].top;
+                dto.left = grids[dto.gridId].left;           
             }
 
-            $scope.dto= null;
+            $scope.dto = null;
+            $scope.sto = null;
             $rootScope.flags.tileOpInProg = false;
         }
         
         
         $scope.dragMove = function (ev) {   //console.log(ev);
             if(!$rootScope.flags.tileOpInProg || !$rootScope.flags.tileMovementAllowed) {return;}
-
 
             ev.stopPropagation();
             ev.preventDefault();
@@ -146,10 +129,8 @@
             for (var i in $scope.TM.tiles) {
                 var tile = $scope.TM.tiles[i];
                 if ($scope.dto.id != tile.id && Math.abs(tile.left - $scope.dto.left) < (tile.width/2) && Math.abs(tile.top - $scope.dto.top) < (tile.height/2)) {                
-                    //break;        // dont break. need to move 'shift-effect' from all tiles
                     $scope.sto = tile;
                     break;
-                    //console.log('sto identified...'); console.log(sto);
                 }
             }         
 

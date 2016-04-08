@@ -42,6 +42,8 @@
         };
         
         this.getClearSpaceDivPosition = function () { return clearSpaceDivPosition;};
+
+        this.getGrids =  function () { return grids;};
         
         
         
