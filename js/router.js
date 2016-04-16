@@ -9,15 +9,11 @@
         $locationProvider.hashPrefix('!');
         $routeProvider
         .when('/desktop', {
-            templateUrl:'partials/desktop.html',
-            controller: 'desktopCtrl'
-        })
-        .when('/home', {
             templateUrl:'partials/tiles.html',
             controller: 'tilesCtrl'
         })
         .when('/', {
-            redirectTo: '/home'
+            redirectTo: '/desktop'
         })
         .otherwise({
             redirectTo: '/'
