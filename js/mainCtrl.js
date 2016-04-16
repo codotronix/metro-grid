@@ -11,5 +11,17 @@
         $rootScope.flags.tileMovementAllowed = false;
         
         
+        $scope.toggleTileResize = function (ev) {
+            ev.stopPropagation();
+            $rootScope.flags.tileResizingAllowed = !$rootScope.flags.tileResizingAllowed; 
+            $rootScope.flags.tileMovementAllowed = false;
+        };
+        
+        $scope.toggleTileMove = function (ev) {
+            ev.stopPropagation();
+            $rootScope.flags.tileMovementAllowed = !$rootScope.flags.tileMovementAllowed;            
+            $rootScope.flags.tileResizingAllowed = false;
+        };
+        
     }])
 })()

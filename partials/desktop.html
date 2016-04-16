@@ -5,8 +5,15 @@
             <label class="name">
                 {{tile.name}}
             </label>
+            
+            <div class="tileMask">
+                <span class="resizeBtn fa fa-recycle" ng-attr-style="font-size:{{tile.height/2.5}}px;"></span>
+            </div>
+            
          </div>
     </div>
+ 
+ 
   
   <!-- IE FIX... in IE style="width:{{someValue}}" doesnot work... but ng-attr-style="width:{{someValue}}" works -->
 <!--
