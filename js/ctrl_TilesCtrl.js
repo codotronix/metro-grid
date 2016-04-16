@@ -34,7 +34,7 @@
         var dtoIndex = 0;
         var newTileOrder = [];
 
-        $scope.dragStart = function(ev, tileID){    //console.log(ev);
+        $scope.dragStart = function(ev, tileID) {    //console.log(ev);
             //console.log("$rootScope.flags.tileOpInProg="+$rootScope.flags.tileOpInProg+" and $rootScope.flags.tileMovementAllowed="+$rootScope.flags.tileMovementAllowed);
             
             //if another tile operation (move, resize) is already in progress, then return
@@ -53,6 +53,7 @@
             $scope.dto.zIndex = 1100;
         };
         
+
         $scope.dragEnd = function(ev) {     //console.log(ev);
             if(!$rootScope.flags.tileOpInProg || !$rootScope.flags.tileMovementAllowed) {return;}
 
@@ -106,6 +107,7 @@
             $rootScope.flags.tileOpInProg = false;
         }
         
+        /***************************************************************************************/
         
         $scope.dragMove = function (ev) {   //console.log(ev);
             if(!$rootScope.flags.tileOpInProg || !$rootScope.flags.tileMovementAllowed) {return;}
@@ -132,11 +134,47 @@
                     $scope.sto = tile;
                     break;
                 }
-            }         
-
+            }
             $scope.dto.top = newTop;
             $scope.dto.left = newLeft;
-        }
+        };
+        
+        //////////////////////////////////////////////////////////////////////////////////
+        
+            
+        /********************************************************************************/
+        $scope.dragEnd = function(ev) {     //console.log(ev);
+            if(!$rootScope.flags.tileOpInProg 
+               || !$rootScope.flags.tileMovementAllowed
+               || $scope.dto == null
+               || $scope.sto == null
+            ) {return;}
+            ev.stopPropagation();
+            
+            var newTileOrder = [];
+            
+            for(var i in $scope.TM.tileOrder) {
+                if ($scope.TM.tileOrder[i] == $scope.dto.id) {
+                    continue;
+                } else if ($scope.TM.tileOrder[i] == $scope.sto.id) {
+                    newTileOrder.push($scope.dto.id);
+                    newTileOrder.push($scope.sto.id);
+                } else {
+                    newTileOrder.push($scope.TM.tileOrder[i]);
+                }
+            }
+            
+            
+            $scope.dto = null;
+            $scope.sto = null;
+            var TM = $scope.TM;
+            TM.tileOrder = newTileOrder;
+            $scope.TM = tileManager.reTilify(TM);
+            $rootScope.flags.tileOpInProg = false;
+        };
+        
+        
+        
         
         
     }]);

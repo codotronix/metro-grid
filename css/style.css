@@ -41,7 +41,7 @@ label {
     width: 20px;
     border: 2px solid darkgray;
 /*    background: gray;*/
-    border-radius: 50%;
+/*    border-radius: 50%;*/
     position: absolute;
     right: 9px;
     top:4px;
@@ -53,7 +53,7 @@ label {
     height: 14px;
     width: 14px;
     background: orangered;
-    border-radius: 50%;
+/*    border-radius: 50%;*/
 }
 
 .toggleBtn.off span {
