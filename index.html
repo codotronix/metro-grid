@@ -11,6 +11,7 @@
     
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="font-awesome-4.5.0/font-awesome-4.5.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/animate.css" />
     <link rel="stylesheet" href="css/style.css" />
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -20,7 +21,7 @@
     <![endif]-->
 </head>
 <body>
-    <div class="container-fluid" ng-class="($root.flags.tileResizingAllowed) ? 'resizeMode' : ''" data-ng-controller="mainCtrl">
+    <div class="container-fluid" ng-class="{'resizeMode': $root.flags.tileResizingAllowed, 'movementMode': $root.flags.tileMovementAllowed}" data-ng-controller="mainCtrl">
         <!--    <div ng-include="'partials/topNav.html'"></div>-->
         <div ng-include="'partials/topPanel.html'"></div>
         
@@ -35,6 +36,7 @@
     <script src="js/angular-route.min.js"></script>
     <script src="js/angular-touch.js"></script> 
     <script src="js/app.js"></script>
+    <script src="js/directive_TileAnimator.js"></script>
     <script src="js/servc_TileManager.js"></script>
     <script src="js/mainCtrl.js"></script>
 <!--    <script src="js/desktopCtrl.js"></script>-->

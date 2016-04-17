@@ -14,6 +14,16 @@
         
         $scope.getClearSpaceDivPosition = tileManager.getClearSpaceDivPosition;
         
+        //disable the link when tile resizing or tile movement is enabled
+        $scope.tileClicked = function (ev, link) {
+            if($rootScope.flags.tileMovementAllowed || $rootScope.flags.tileResizingAllowed) {
+                ev.preventDefault();
+                return;
+            } else {
+                //window.location.href = link;
+            }
+        };
+        
         var tilesSizes = ["small", "medium", "rectangle", "big"];
         $scope.nextSize =  function (tileID) {
             //console.log($scope.tiles[tileID].size);

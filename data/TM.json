@@ -1,5 +1,10 @@
 {
-    "tileOrder": [
+    "tileOrder": [  
+                    "linkedIn",
+                    "stackoverflow",
+                    "facebook",
+                    "twitter",
+                    "myPictures",
                     "fontAwesome",
                     "ieEdge",
                     "dummyShop1",
@@ -9,17 +14,14 @@
                     "myCloud",
                     "islandChat",
                     "github",
-                    "facebook",
                     "offersplus",
                     "miniPuzzle",
                     "flightApp",
                     "myMusic",
                     "medicalApp",
                     "planetApp",
-                    "myVideos",
-                    "myPictures",
-                    "messageBox",
-                    "linkedIn"
+                    "myVideos",                    
+                    "messageBox"
                   ],
     "tiles": {
             "ieEdge": {
@@ -63,9 +65,9 @@
                 "id": "myPictures",
                 "name": "My Pictures",
                 "size": "big",
-                "iconType": "font",
-                "icon": "fa fa-file-image-o",
-                "bgColor": "#B01E00"
+                "iconType": "live",
+                "liveImgUrls": ["img/a.jpg", "img/b.jpg", "img/c.jpg", "img/d.jpg", "img/sumanbarick.jpg"],
+                "bgColor": "rgba(255,255,255,.2)"
             },
             "taxiApp": {
                 "id": "taxiApp",
@@ -102,7 +104,9 @@
                 "name": "Facebook",
                 "size": "small",
                 "iconType": "font",
-                "icon": "fa fa-facebook-square"
+                "icon": "fa fa-facebook-square",
+                "bgColor":"#3b5998",
+                "link":"http://facebook.com/codotronix"
             },
             "offersplus": {
                 "id": "offersplus",
@@ -122,7 +126,7 @@
             "flightApp": {
                 "id": "flightApp",
                 "name": "Flight App",
-                "size": "medium",
+                "size": "rectangle",
                 "iconType": "font",
                 "icon": "fa fa-plane"
             },
@@ -161,7 +165,7 @@
             "messageBox": {
                 "id": "messageBox",
                 "name": "Message Box",
-                "size": "medium",
+                "size": "small",
                 "iconType": "font",
                 "icon": "fa fa-envelope",
                 "bgColor": "#386D7D"
@@ -169,10 +173,29 @@
             "linkedIn": {
                 "id": "linkedIn",
                 "name": "linkedin",
-                "size": "medium",
+                "size": "small",
                 "iconType": "font",
                 "icon": "fa fa-linkedin-square",
-                "bgColor": "darkred"
+                "bgColor": "darkred",
+                "link": "https://in.linkedin.com/in/sumanbarick"
+            },
+            "stackoverflow": {
+                "id": "stackoverflow",
+                "name": "Stack Overflow",
+                "size": "small",
+                "iconType": "font",
+                "icon": "fa fa-stack-overflow",
+                "bgColor": "#8E8C8C",
+                "link": "http://stackoverflow.com/users/5017556/suman-barick"
+            },
+            "twitter": {
+                "id": "twitter",
+                "name": "twitter",
+                "size": "small",
+                "iconType": "font",
+                "icon": "fa fa-twitter",
+                "bgColor": "#4099FF",
+                "link": "https://twitter.com/codotronix"
             }
     }
 }

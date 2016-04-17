@@ -95,11 +95,12 @@ label {
     width: 100%;
     display: block;
     position: relative;
+    overflow: hidden;
 }
 
 .tile .tileInnerContainer .tileMask {
     position: absolute;
-    background: rgba(0,0,0,.6);
+/*    background: rgba(0,0,0,.6);*/
     top: 0;
     bottom: 0;
     left: 0;
@@ -110,6 +111,27 @@ label {
 
 .resizeMode .tile .tileInnerContainer .tileMask {
     display: block;
+}
+
+.resizeMode .tile .tileInnerContainer,
+.movementMode .tile .tileInnerContainer {
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+.resizeMode .tile .tileInnerContainer {
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+}
+
+.movementMode .tile .tileInnerContainer {
+/*    border: 2px solid yellow;*/
+    -webkit-animation-name: customShake;
+    animation-name: customShake;
 }
 
 .tile .tileInnerContainer .resizeBtn {
@@ -153,6 +175,11 @@ label {
     font-size: 150px;
     margin-top: 60px;
     color: #FFF;
+}
+
+.tile .fontImg {
+    height: 100%;
+    width: 100%;
 }
 
 .topPanel {
@@ -247,4 +274,75 @@ label {
     .topPanel .welcomeTxt {
         display: none;
     }
+}
+
+
+/************* Animation Keyframes ******************/
+
+@-webkit-keyframes customShake {
+  from, to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%, 30%, 50%, 70%, 90% {
+    -webkit-transform: translate3d(-5px, 0, 0);
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  20%, 40%, 60%, 80% {
+    -webkit-transform: translate3d(5px, 0, 0);
+    transform: translate3d(5px, 0, 0);
+  }
+}
+
+@keyframes customShake {
+  from, to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%, 30%, 50%, 70%, 90% {
+    -webkit-transform: translate3d(-5px, 0, 0);
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  20%, 40%, 60%, 80% {
+    -webkit-transform: translate3d(5px, 0, 0);
+    transform: translate3d(5px, 0, 0);
+  }
+}
+
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
 }
