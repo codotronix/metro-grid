@@ -1,37 +1,6 @@
 {
-    "tileOrder": [  
-                    "linkedIn",
-                    "stackoverflow",
-                    "github",
-                    "facebook",
-                    "twitter",                    
-                    "myPictures",
-                    "galaxy",
-                    "theCalculator",
-                    "reactTaskMan",
-                    "bengalirecipes",
-                    "offersplus",
-                    "oneMall",
-                    "islandChat",
-                    "miniPuzzle",
-                    "asteroidattack",
-                    "myMusic",
-                    "medicalApp",
-                    "planetApp",
-                    "myVideos",                    
-                    "messageBox",
-                    "ieEdge",
-                    "dummyShop1"
-                  ],
-    "tiles": {
-            "ieEdge": {
-                "id": "ieEdge",
-                "name": "Edge",
-                "size": "small",
-                "iconType": "font",
-                "icon": "fa fa-edge",
-                "bgColor": "steelblue"
-            },
+    "tileOrder": ["linkedIn","stackoverflow","galaxy","myPictures","asteroidattack","miniPuzzle","facebook","twitter","codotronixBlog","oneMall","offersplus","tankgular","gogoltugo","github","bengalirecipes","reactTaskMan"],
+    "tiles": {            
             "galaxy": {
                 "id": "galaxy",
                 "name": "Galaxy Website",
@@ -40,20 +9,14 @@
                 "liveImgUrls": ["img/galaxy/galaxy.png"],
                 "link": "http://codotronix.github.io/galaxy/"
             },
-            "dummyShop1": {
-                "id": "dummyShop1",
-                "name": "Shop",
-                "size": "small",
-                "iconType": "font",
-                "icon": "fa fa-shopping-basket"
-            },
-            "theCalculator": {
-                "id": "theCalculator",
-                "name": "Go Gol2, Go!",
-                "size": "rectangle",
-                "iconType": "font",
-                "icon": "fa fa-calculator",
-                "bgColor": "#FF2E12"
+            "codotronixBlog": {
+                "id": "codotronixBlog",
+                "name": "Codotronix - The Way of a Coder",
+                "size": "medium",
+                "iconType": "live",
+                "liveImgUrls": ["img/codotronixblog/CodotronixLogo.png"],
+                "bgColor": "rgba(255,255,255,.2)",
+                "link": "http://codotronix.barick.in/"
             },
             "reactTaskMan": {
                 "id": "reactTaskMan",
@@ -77,31 +40,23 @@
                 "name": "Bengali Recipes",
                 "size": "rectangle",
                 "iconType": "live",
-                "liveImgUrls": ["img/bengalirecipes/310x150.png"],
+                "liveImgUrls": ["img/bengalirecipes/310x150.png", "img/bengalirecipes/appcomingsoon.png"],
                 "bgColor": "#AA0000",
                 "link": "http://codotronix.github.io/bengali-recipes"
             },
             "oneMall": {
                 "id": "oneMall",
                 "name": "One Mall",
-                "size": "medium",
+                "size": "small",
                 "iconType": "live",
                 "liveImgUrls": ["img/oneMall/onemall-rec.png"],
                 "bgColor": "#AA0000",
                 "link": "http://codotronix.github.io/one"
             },
-            "islandChat": {
-                "id": "islandChat",
-                "name": "Island Chat",
-                "size": "medium",
-                "iconType": "font",
-                "icon": "fa fa-commenting-o",
-                "bgColor": "slateblue"
-            },
             "github": {
                 "id": "github",
                 "name": "Github",
-                "size": "medium",
+                "size": "small",
                 "iconType": "font",
                 "icon": "fa fa-github",
                 "bgColor": "#0A5231"
@@ -118,7 +73,7 @@
             "offersplus": {
                 "id": "offersplus",
                 "name": "Offersplus.in",
-                "size": "medium",
+                "size": "small",
                 "iconType": "live",
                 "liveImgUrls": ["img/offersplus/offersplus.in.png"],
                 "link": "http://offersplus.in"
@@ -132,6 +87,24 @@
                 "bgColor": "rgba(255,255,255,.2)",
                 "link": "http://codotronix.github.io/sections/apps/minipuzzle/index.html"
             },
+            "gogoltugo": {
+                "id": "gogoltugo",
+                "name": "Go Gol2, Go!",
+                "size": "rectangle",
+                "iconType": "live",
+                "liveImgUrls": ["img/goltu/800x400.png"],
+                "bgColor": "rgba(255,255,255,.2)",
+                "link": "http://codotronix.github.io/Dourio/Final/"
+            },
+            "tankgular": {
+                "id": "tankgular",
+                "name": "Tankgular !!!",
+                "size": "rectangle",
+                "iconType": "live",
+                "liveImgUrls": ["img/tankgular/tankgular.png"],
+                "bgColor": "rgba(255,255,255,.2)",
+                "link": "http://codotronix.github.io/Tankgular/"
+            },
             "asteroidattack": {
                 "id": "asteroidattack",
                 "name": "Asteroid Aattack",
@@ -140,46 +113,6 @@
                 "liveImgUrls": ["img/asteroidattack/astattack.png"],
                 "bgColor": "#000",
                 "link": "http://codotronix.github.io/Asteroid-Attack/play.html"
-            },
-            "myMusic": {
-                "id": "myMusic",
-                "name": "My Music",
-                "size": "small",
-                "iconType": "font",
-                "icon": "fa fa-music",
-                "bgColor": "#8E4B4B"
-            },
-            "medicalApp": {
-                "id": "medicalApp",
-                "name": "Medical App",
-                "size": "small",
-                "iconType": "font",
-                "icon": "fa fa-heartbeat",
-                "bgColor": "red"
-            },
-            "planetApp": {
-                "id": "planetApp",
-                "name": "TankGular",
-                "size": "rectangle",
-                "iconType": "font",
-                "icon": "fa fa-globe",
-                "bgColor": "blue"
-            },
-            "myVideos": {
-                "id": "myVideos",
-                "name": "My Videos",
-                "size": "rectangle",
-                "iconType": "font",
-                "icon": "fa fa-film",
-                "bgColor": "#000"
-            },
-            "messageBox": {
-                "id": "messageBox",
-                "name": "Message Box",
-                "size": "small",
-                "iconType": "font",
-                "icon": "fa fa-envelope",
-                "bgColor": "#386D7D"
             },
             "linkedIn": {
                 "id": "linkedIn",

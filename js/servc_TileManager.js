@@ -32,7 +32,7 @@
         this.reTilify = function (TM) {
             tiles = TM.tiles;
             tileOrder = TM.tileOrder;
-            
+            console.log("tileOrder: " + JSON.stringify(tileOrder));
             resetGrids();
             mapTilesToGrid();
             
