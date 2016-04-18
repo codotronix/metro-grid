@@ -2,26 +2,26 @@
     "tileOrder": [  
                     "linkedIn",
                     "stackoverflow",
+                    "github",
                     "facebook",
-                    "twitter",
+                    "twitter",                    
                     "myPictures",
                     "galaxy",
-                    "ieEdge",
-                    "dummyShop1",
                     "theCalculator",
                     "reactTaskMan",
-                    "taxiApp",
-                    "myCloud",
-                    "islandChat",
-                    "github",
+                    "bengalirecipes",
                     "offersplus",
+                    "oneMall",
+                    "islandChat",
                     "miniPuzzle",
                     "asteroidattack",
                     "myMusic",
                     "medicalApp",
                     "planetApp",
                     "myVideos",                    
-                    "messageBox"
+                    "messageBox",
+                    "ieEdge",
+                    "dummyShop1"
                   ],
     "tiles": {
             "ieEdge": {
@@ -49,10 +49,11 @@
             },
             "theCalculator": {
                 "id": "theCalculator",
-                "name": "Calculator",
+                "name": "Go Gol2, Go!",
                 "size": "rectangle",
                 "iconType": "font",
-                "icon": "fa fa-calculator"
+                "icon": "fa fa-calculator",
+                "bgColor": "#FF2E12"
             },
             "reactTaskMan": {
                 "id": "reactTaskMan",
@@ -68,27 +69,31 @@
                 "name": "My Pictures",
                 "size": "big",
                 "iconType": "live",
-                "liveImgUrls": ["img/a.jpg", "img/b.jpg", "img/c.jpg", "img/d.jpg", "img/sumanbarick.jpg"],
+                "liveImgUrls": ["img/myPictures/a.jpg", "img/myPictures/b.jpg", "img/myPictures/c.jpg", "img/myPictures/d.jpg", "img/myPictures/sumanbarick.jpg"],
                 "bgColor": "rgba(255,255,255,.2)"
             },
-            "taxiApp": {
-                "id": "taxiApp",
-                "name": "Taxi App",
-                "size": "small",
-                "iconType": "font",
-                "icon": "fa fa-taxi"
+            "bengalirecipes": {
+                "id": "bengalirecipes",
+                "name": "Bengali Recipes",
+                "size": "rectangle",
+                "iconType": "live",
+                "liveImgUrls": ["img/bengalirecipes/310x150.png"],
+                "bgColor": "#AA0000",
+                "link": "http://codotronix.github.io/bengali-recipes"
             },
-            "myCloud": {
-                "id": "myCloud",
-                "name": "My Cloud",
-                "size": "small",
-                "iconType": "font",
-                "icon": "fa fa-cloud"
+            "oneMall": {
+                "id": "oneMall",
+                "name": "One Mall",
+                "size": "medium",
+                "iconType": "live",
+                "liveImgUrls": ["img/oneMall/onemall-rec.png"],
+                "bgColor": "#AA0000",
+                "link": "http://codotronix.github.io/one"
             },
             "islandChat": {
                 "id": "islandChat",
                 "name": "Island Chat",
-                "size": "rectangle",
+                "size": "medium",
                 "iconType": "font",
                 "icon": "fa fa-commenting-o",
                 "bgColor": "slateblue"
@@ -96,7 +101,7 @@
             "github": {
                 "id": "github",
                 "name": "Github",
-                "size": "small",
+                "size": "medium",
                 "iconType": "font",
                 "icon": "fa fa-github",
                 "bgColor": "#0A5231"
@@ -112,10 +117,11 @@
             },
             "offersplus": {
                 "id": "offersplus",
-                "name": "Offersplus",
-                "size": "small",
-                "iconType": "font",
-                "icon": "fa fa-shopping-bag"
+                "name": "Offersplus.in",
+                "size": "medium",
+                "iconType": "live",
+                "liveImgUrls": ["img/offersplus/offersplus.in.png"],
+                "link": "http://offersplus.in"
             },
             "miniPuzzle": {
                 "id": "miniPuzzle",
@@ -146,15 +152,15 @@
             "medicalApp": {
                 "id": "medicalApp",
                 "name": "Medical App",
-                "size": "medium",
+                "size": "small",
                 "iconType": "font",
                 "icon": "fa fa-heartbeat",
                 "bgColor": "red"
             },
             "planetApp": {
                 "id": "planetApp",
-                "name": "Planet App",
-                "size": "medium",
+                "name": "TankGular",
+                "size": "rectangle",
                 "iconType": "font",
                 "icon": "fa fa-globe",
                 "bgColor": "blue"
