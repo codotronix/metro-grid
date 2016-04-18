@@ -5,18 +5,18 @@
                     "facebook",
                     "twitter",
                     "myPictures",
-                    "fontAwesome",
+                    "galaxy",
                     "ieEdge",
                     "dummyShop1",
                     "theCalculator",
-                    "calendarTile",
+                    "reactTaskMan",
                     "taxiApp",
                     "myCloud",
                     "islandChat",
                     "github",
                     "offersplus",
                     "miniPuzzle",
-                    "flightApp",
+                    "asteroidattack",
                     "myMusic",
                     "medicalApp",
                     "planetApp",
@@ -32,12 +32,13 @@
                 "icon": "fa fa-edge",
                 "bgColor": "steelblue"
             },
-            "fontAwesome": {
-                "id": "fontAwesome",
-                "name": "Font Awesome",
+            "galaxy": {
+                "id": "galaxy",
+                "name": "Galaxy Website",
                 "size": "medium",
-                "iconType": "font",
-                "icon": "fa fa-fort-awesome"
+                "iconType": "live",
+                "liveImgUrls": ["img/galaxy/galaxy.png"],
+                "link": "http://codotronix.github.io/galaxy/"
             },
             "dummyShop1": {
                 "id": "dummyShop1",
@@ -53,13 +54,14 @@
                 "iconType": "font",
                 "icon": "fa fa-calculator"
             },
-            "calendarTile": {
-                "id": "calendarTile",
-                "name": "Calendar",
+            "reactTaskMan": {
+                "id": "reactTaskMan",
+                "name": "React TaskMan",
                 "size": "medium",
-                "iconType": "font",
-                "icon": "fa fa-calendar",
-                "bgColor": "green"
+                "iconType": "live",
+                "liveImgUrls": ["img/reactTaskman/react.png"],
+                "bgColor": "#653877",
+                "link": "http://codotronix.github.io/react-taskman"
             },
             "myPictures": {
                 "id": "myPictures",
@@ -118,17 +120,20 @@
             "miniPuzzle": {
                 "id": "miniPuzzle",
                 "name": "Mini Puzzle",
-                "size": "medium",
-                "iconType": "font",
-                "icon": "fa fa-puzzle-piece",
-                "bgColor": "orangered"
-            },
-            "flightApp": {
-                "id": "flightApp",
-                "name": "Flight App",
                 "size": "rectangle",
-                "iconType": "font",
-                "icon": "fa fa-plane"
+                "iconType": "live",
+                "liveImgUrls": ["img/minipuzzle/360.png", "img/minipuzzle/744x360.png"],
+                "bgColor": "rgba(255,255,255,.2)",
+                "link": "http://codotronix.github.io/sections/apps/minipuzzle/index.html"
+            },
+            "asteroidattack": {
+                "id": "asteroidattack",
+                "name": "Asteroid Aattack",
+                "size": "rectangle",
+                "iconType": "live",
+                "liveImgUrls": ["img/asteroidattack/astattack.png"],
+                "bgColor": "#000",
+                "link": "http://codotronix.github.io/Asteroid-Attack/play.html"
             },
             "myMusic": {
                 "id": "myMusic",
