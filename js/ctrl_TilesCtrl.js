@@ -13,6 +13,14 @@
         });
         
         $scope.getClearSpaceDivPosition = tileManager.getClearSpaceDivPosition;
+
+        //whenever tile movement ends ensure that tiles are align to grids
+        //the top and left postion of tiles might get destroyed
+        //due to improper touch trigger and drag event
+        //so, calculate the position as per last saved order
+        $scope.$on('tileMovementEnd', function() {
+            $scope.TM = tileManager.reTilify($scope.TM);
+        });
         
         //disable the link when tile resizing or tile movement is enabled
         $scope.tileClicked = function (ev, link) {
@@ -25,14 +33,41 @@
             }
         };
         
-        //disable the link when tile resizing or tile movement is enabled
-        $scope.tileTouched = function (ev, link) {
+        //Implement Touch and Hold on a tile...
+        //touching a tile should not fire the tile links as this is hampering Scroll        
+        var touchStartTime = 0;
+        
+        $scope.tileTouchStart = function (ev) {
+            if($rootScope.flags.tileMovementAllowed || $rootScope.flags.tileResizingAllowed) {
+                ev.preventDefault();
+                touchStartTime = 0;
+                return;
+            } else {
+//                console.log("clicked 0n" + link);
+                //window.location.href = link;
+                touchStartTime = (new Date()).getTime();
+            }
+        };
+        
+        $scope.tileTouchEnd = function (ev, link) {
+            var touchEndTime = (new Date()).getTime();
+            var timeDiff = touchEndTime - touchStartTime;
+            //console.log("touchStartTime="+touchStartTime);
+            //console.log("touchEndTime="+touchEndTime);
+            console.log("timeDiff="+timeDiff);
+            touchStartTime = 0;
+            
             if($rootScope.flags.tileMovementAllowed || $rootScope.flags.tileResizingAllowed) {
                 ev.preventDefault();
                 return;
             } else {
 //                console.log("clicked 0n" + link);
-                window.location.href = link;
+                //window.location.href = link;
+                if(timeDiff > 500) { console.log('here');
+                    window.location.href = link;
+                }
+                
+                touchStartTime = 0;
             }
         };
         

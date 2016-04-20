@@ -19,6 +19,12 @@
         
         $scope.toggleTileMove = function (ev) {
             ev.stopPropagation();
+
+            //sometimes in mobile deviced tile structure gets destroyed while restructing
+            if ($rootScope.flags.tileMovementAllowed) {
+                $rootScope.$broadcast('tileMovementEnd');
+            }
+
             $rootScope.flags.tileMovementAllowed = !$rootScope.flags.tileMovementAllowed;            
             $rootScope.flags.tileResizingAllowed = false;
         };

@@ -13,7 +13,8 @@
                         data-gridid="{{tile.gridId}}">
          <a href="javascript:void(0)" ng-href="{{tile.link}}" target="_blank" 
               ng-click="tileClicked($event, tile.link)" 
-              ng-touchstart="tileTouched($event, tile.link)"
+              ng-touchstart="tileTouchStart($event)"
+              ng-touchend="tileTouchEnd($event, tile.link)"
                class="tileInnerContainer" data-ng-attr-style="background:{{tile.bgColor}}">
             
             <!-- if iconType == "font" -->
