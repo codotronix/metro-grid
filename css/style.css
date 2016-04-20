@@ -45,9 +45,9 @@ label {
 /*    background: gray;*/
 /*    border-radius: 50%;*/
     position: absolute;
-    right: 9px;
-    top:4px;
-    padding: 1px;
+    right: 30px;
+    top: 12px;
+    padding: 0.5px;
 }
 
 .toggleBtn span {
@@ -244,6 +244,7 @@ label {
 */
 
 
+
 @media (min-width: 768px) {
     .taskbar .container-fluid {
         padding: 0;
@@ -270,6 +271,10 @@ label {
         line-height: 0;
     }
     
+    .xsOnly {
+        display: none !important;
+    }
+    
 }
 
 @media (max-width: 767px) {
@@ -279,6 +284,17 @@ label {
     
     .taskbar .navbar-inverse {
         bottom: -1px;
+    }
+    
+    .hideInXS {
+        display: none !important;
+    }
+    
+    #mobileStartBtn {
+        background: #000;
+        color: #FFF;
+        float: left;
+        margin-left: 15px;
     }
 }
 

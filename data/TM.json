@@ -32,7 +32,7 @@
                 "name": "My Pictures",
                 "size": "big",
                 "iconType": "live",
-                "liveImgUrls": ["img/myPictures/a.jpg", "img/myPictures/b.jpg", "img/myPictures/c.jpg", "img/myPictures/d.jpg", "img/myPictures/sumanbarick.jpg"],
+                "liveImgUrls": ["img/myPictures/1.jpg", "img/myPictures/2.jpg", "img/myPictures/3.jpg", "img/myPictures/4.jpg"],
                 "bgColor": "rgba(255,255,255,.2)"
             },
             "bengalirecipes": {
