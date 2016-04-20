@@ -2,7 +2,7 @@
     angular.module('barickOSApp')
     
     /*****************************************************************************
-     * The Route
+     * The Router
      *****************************************************************************/    
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
         $locationProvider.html5Mode(false);
