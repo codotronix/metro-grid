@@ -20,7 +20,19 @@
                 ev.preventDefault();
                 return;
             } else {
-                //window.location.href = link;
+//                console.log("clicked 0n" + link);
+//                window.location.href = link;
+            }
+        };
+        
+        //disable the link when tile resizing or tile movement is enabled
+        $scope.tileTouched = function (ev, link) {
+            if($rootScope.flags.tileMovementAllowed || $rootScope.flags.tileResizingAllowed) {
+                ev.preventDefault();
+                return;
+            } else {
+//                console.log("clicked 0n" + link);
+                window.location.href = link;
             }
         };
         
