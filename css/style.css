@@ -276,6 +276,10 @@ label {
     .topPanel .welcomeTxt {
         display: none;
     }
+    
+    .taskbar .navbar-inverse {
+        bottom: -1px;
+    }
 }
 
 

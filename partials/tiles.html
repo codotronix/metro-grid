@@ -11,7 +11,9 @@
                         ng-class="{'shift-effect':(tile.id==sto.id), 'drag-effect':(tile.id==dto.id)}" 
                         ng-attr-style="top:{{tile.top}}px; left:{{tile.left}}px; width:{{tile.width}}px; height:{{tile.height}}px;" 
                         data-gridid="{{tile.gridId}}">
-         <a ng-href="{{tile.link}}" target="_blank" ng-click="tileClicked($event, tile.link)" 
+         <a href="javascript:void(0)" ng-href="{{tile.link}}" target="_blank" 
+              ng-click="tileClicked($event, tile.link)" 
+              ng-touchstart="tileTouched($event, tile.link)"
                class="tileInnerContainer" data-ng-attr-style="background:{{tile.bgColor}}">
             
             <!-- if iconType == "font" -->
@@ -29,7 +31,7 @@
                 {{tile.name}}
             </label>
             
-            <div class="tileMask" ng-click="nextSize(tile.id)">
+            <div class="tileMask" ng-click="nextSize(tile.id)" ng-touchstart="nextSize(tile.id)">
 <!--                <span class="resizeBtn fa fa-recycle" ng-attr-style="font-size:{{tile.height/2.5}}px;"></span>-->
             </div>
             
