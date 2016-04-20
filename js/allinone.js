@@ -11,7 +11,7 @@
     .directive('tileAnimator', ['$timeout', '$rootScope', function ($timeout, $rootScope) {
         return {
             restrict: 'E',
-            controller: function ($scope) {
+            controller: ['$scope', function ($scope) {
                 //$scope.newThing = "___" + $scope.tile.id;
                 $scope.currImgIndex = 0;
                 $scope.AnimateClass = 'bounce';
@@ -35,7 +35,7 @@
                 
                 nxtImg();
                 
-            },
+            }],
             templateUrl: 'partials/tileAnimator.html'
         }
     }])
