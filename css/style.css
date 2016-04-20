@@ -275,6 +275,15 @@ label {
         display: none !important;
     }
     
+    .taskbar .toggleBtn {
+        right: 7px;
+        top: 4px;
+    }
+    
+    .dropdown-menu>li>a {
+        padding-left: 7px;
+    }
+    
 }
 
 @media (max-width: 767px) {
