@@ -1,5 +1,5 @@
 {
-    "tileOrder": ["linkedIn","stackoverflow","galaxy","myPictures","asteroidattack","miniPuzzle","facebook","twitter","codotronixBlog","oneMall","offersplus","tankgular","gogoltugo","github","myBlog","bengalirecipes","reactTaskMan"],
+    "tileOrder": ["linkedIn","stackoverflow","galaxy","myPictures","asteroidattack","miniPuzzle","facebook","twitter","codotronixBlog","oneMall","offersplus","tankgular","gogoltugo","github","myBlog","bengalirecipes","reactTaskMan", "txtTile"],
     "tiles": {            
             "galaxy": {
                 "id": "galaxy",
@@ -33,7 +33,18 @@
                 "size": "big",
                 "iconType": "live",
                 "liveImgUrls": ["img/myPictures/1.jpg", "img/myPictures/3.jpg", "img/myPictures/4.jpg"],
+                "liveTxts": ["Welcome to my Website", "Follow me at Twitter @codotronix"],
+                "fontColor": "ivory",
                 "bgColor": "rgba(255,255,255,.2)"
+            },
+            "txtTile": {
+                "id": "txtTile",
+                "name": "Hello Guest!",
+                "size": "rectangle",
+                "iconType": "live",
+                "liveTxts": ["Hi! I am Suman Barick and I love to Code", "This site has an AngularJS version and also a jQuery one", "This site is inspired by Windows Metro Style"],
+                "fontColor": "#E4F978",
+                "bgColor": "rgba(255, 3, 3, 0.88)"
             },
             "bengalirecipes": {
                 "id": "bengalirecipes",
