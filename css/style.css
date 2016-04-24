@@ -1,8 +1,9 @@
 * {
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-  user-select: none;          /* Likely future */      
+      -webkit-user-select: none;  /* Chrome all / Safari all */
+      -moz-user-select: none;     /* Firefox all */
+      -ms-user-select: none;      /* IE 10+ */
+      user-select: none;          /* Likely future */ 
+    box-sizing: border-box;
 }
 
 body { 
@@ -63,7 +64,7 @@ label {
 }
 
 .tiles-container {
-    margin: 15px 0;
+/*    margin: 15px 0;*/
     position: relative;
     margin-top: 100px;
     padding-bottom: 70px;
@@ -100,6 +101,11 @@ label {
     overflow: hidden;
 }
 
+.tile .tileInnerContainer .live {
+    height: 100%;
+    width: 100%;
+}
+
 .tile .tileInnerContainer .tileMask {
     position: absolute;
 /*    background: rgba(0,0,0,.6);*/
@@ -111,14 +117,26 @@ label {
     display: none;
 }
 
+.tile .liveTxt {
+    position: absolute;
+/*    top: 0;*/
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    text-align: center;
+    color: #FF0;
+    font-size: 2rem;
+}
+
 .resizeMode .tile .tileInnerContainer .tileMask {
     display: block;
 }
 
 .resizeMode .tile .tileInnerContainer,
 .movementMode .tile .tileInnerContainer {
-    -webkit-animation-duration: 1.5s;
-    animation-duration: 1.5s;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
     -webkit-animation-iteration-count: infinite;
@@ -126,8 +144,8 @@ label {
 }
 
 .resizeMode .tile .tileInnerContainer {
-    -webkit-animation-name: pulse;
-    animation-name: pulse;
+    -webkit-animation-name: customPulse;
+    animation-name: customPulse;
 }
 
 .movementMode .tile .tileInnerContainer {
@@ -311,48 +329,62 @@ label {
 /************* Animation Keyframes ******************/
 
 @-webkit-keyframes customShake {
+/*
   from, to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+*/
+
+  25% {
+    -webkit-transform: rotate(-2deg);
+    transform: rotate(-2deg);
   }
 
-  10%, 30%, 50%, 70%, 90% {
-    -webkit-transform: translate3d(-5px, 0, 0);
-    transform: translate3d(-5px, 0, 0);
+  0%, 50%, 100% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
   }
-
-  20%, 40%, 60%, 80% {
-    -webkit-transform: translate3d(5px, 0, 0);
-    transform: translate3d(5px, 0, 0);
+    
+   75% {
+    -webkit-transform: rotate(2deg);
+    transform: rotate(2deg);
   }
 }
 
 @keyframes customShake {
+  /*
   from, to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+*/
+
+   25% {
+    -webkit-transform: rotate(-2deg);
+    transform: rotate(-2deg);
   }
 
-  10%, 30%, 50%, 70%, 90% {
-    -webkit-transform: translate3d(-5px, 0, 0);
-    transform: translate3d(-5px, 0, 0);
+  0%, 50%, 100% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
   }
-
-  20%, 40%, 60%, 80% {
-    -webkit-transform: translate3d(5px, 0, 0);
-    transform: translate3d(5px, 0, 0);
+    
+   75% {
+    -webkit-transform: rotate(2deg);
+    transform: rotate(2deg);
   }
 }
 
-@-webkit-keyframes pulse {
+@-webkit-keyframes customPulse {
   from {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
 
   50% {
-    -webkit-transform: scale3d(1.05, 1.05, 1.05);
-    transform: scale3d(1.05, 1.05, 1.05);
+    -webkit-transform: scale3d(.95, .95, .95);
+    transform: scale3d(.95, .95, .95);
   }
 
   to {
@@ -361,15 +393,15 @@ label {
   }
 }
 
-@keyframes pulse {
+@keyframes customPulse {
   from {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
 
   50% {
-    -webkit-transform: scale3d(1.05, 1.05, 1.05);
-    transform: scale3d(1.05, 1.05, 1.05);
+    -webkit-transform: scale3d(.95, .95, .95);
+    transform: scale3d(.95, .95, .95);
   }
 
   to {

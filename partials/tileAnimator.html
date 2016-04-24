@@ -1,1 +1,7 @@
-<img ng-src="{{tile.liveImgUrls[currImgIndex]}}" class="fontImg animated {{AnimateClass}}"/>
+<div class="live">
+    <img ng-src="{{tile.liveImgUrls[currImgIndex]}}" class="fontImg animated {{AnimateImgClass}}"/>
+
+
+    <span class="liveTxt animated {{AnimateTxtClass}}" ng-bind="tile.liveTxts[currTxtIndex]">
+    </span>
+</div>
